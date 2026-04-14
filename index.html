@@ -1,0 +1,3053 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bait Hoyamal — Design Playground</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Courier+Prime&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Naskh+Arabic:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+
+:root{--ral9006:#A5A5A0;--concrete:#9A9590;--concrete-light:#C4BFBA;--beige-marble:#E5DCCE;--beige-marble-deep:#C9B99A;--wood-light:#C8A97E;--wood-warm:#A68B64;--sage-herb:#8BA888;--rosemary:#6B8C6B;--bougainvillea:#C44D72;--acacia-yellow:#E8C84A;--grass:#7DA36B;--garden-earth:#6B5B4A;--charcoal:#2A2622;--warm-grey:#7A756E;--linen:#F0EBE3;--off-white:#FAFAF7}
+
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+
+body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--charcoal);overflow-x:hidden}
+
+body::after{content:'';position:fixed;inset:0;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");z-index:9999}
+
+
+
+nav{position:fixed;top:0;width:100%;z-index:200;padding:0 48px;height:72px;display:flex;justify-content:space-between;align-items:center;background:rgba(250,250,247,.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(42,38,34,.06)}
+
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;color:var(--charcoal);cursor:pointer}
+
+.logo i{font-style:italic;color:var(--warm-grey);text-transform:lowercase;letter-spacing:0;font-weight:400;margin-left:2px}
+
+.nav-links{display:flex;gap:6px;list-style:none}
+
+.nav-links li a{text-decoration:none;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--warm-grey);padding:8px 16px;border-radius:30px;transition:all .35s;border:1px solid transparent}
+
+.nav-links li a:hover{color:var(--charcoal);background:rgba(42,38,34,.04)}
+
+.nav-links li a.active{color:var(--charcoal);border-color:rgba(42,38,34,.12);background:rgba(42,38,34,.03)}
+
+
+
+.page{display:none;min-height:100vh;padding-top:72px}.page.active{display:block;animation:pageIn .6s ease forwards}
+
+@keyframes pageIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+
+
+/* Hero — material bands + 3D villa + bilingual */
+
+.hero{min-height:120vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0;position:relative;overflow:hidden}
+
+
+
+/* Blended material bands — soft, muted, morning light */
+
+.hero-bands{position:absolute;inset:0;background:
+
+  linear-gradient(180deg,
+
+    #B5B0AA 0%,
+
+    #BAB5AF 6%,
+
+    #C0BBB5 12%,
+
+    #C8C3BC 18%,
+
+    #CECAC2 24%,
+
+    #D2CCBE 30%,
+
+    #D8D0C2 36%,
+
+    #DDD6C8 42%,
+
+    #DDD2C0 48%,
+
+    #DACAAE 54%,
+
+    #D5C4A4 60%,
+
+    #D0BC9A 66%,
+
+    #CBB592 72%,
+
+    #C8B08C 78%,
+
+    #CCBA9A 84%,
+
+    #D6C8AE 88%,
+
+    #E0D6C4 92%,
+
+    #EBE5DA 95%,
+
+    #F3F0EA 97%,
+
+    #FAFAF7 100%
+
+  )}
+
+/* Noise texture overlay — barely there */
+
+.hero-bands::after{content:'';position:absolute;inset:0;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:512px}
+
+/* Marble vein overlay — whisper */
+
+.hero-bands::before{content:'';position:absolute;left:0;right:0;top:28%;height:40%;opacity:.02;background:
+
+  repeating-linear-gradient(
+
+    -12deg,
+
+    transparent,
+
+    transparent 40px,
+
+    rgba(42,38,34,.15) 40px,
+
+    rgba(42,38,34,.06) 42px,
+
+    transparent 44px
+
+  );pointer-events:none}
+
+
+
+/* Material band labels — subtle indicators */
+
+.band-labels{position:absolute;right:24px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:space-between;padding:100px 0;z-index:2;pointer-events:none}
+
+.band-label{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(42,38,34,.15);writing-mode:vertical-rl;text-orientation:mixed}
+
+
+
+/* Arabic name — top left, large */
+
+.hero-arabic{position:absolute;top:100px;left:48px;font-family:'Noto Naskh Arabic','Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:400;color:rgba(42,38,34,.4);direction:rtl;z-index:2;opacity:0;animation:fadeUp .8s .3s forwards;line-height:1.4}
+
+
+
+/* Content layer */
+
+.hero-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:40px 48px}
+
+
+
+/* Coordinates */
+
+.hero-coords{font-family:'DM Sans',monospace;font-size:.68rem;letter-spacing:.3em;color:rgba(42,38,34,.25);margin-bottom:32px;opacity:0;animation:fadeUp .8s .5s forwards}
+
+.hero-coords a{color:rgba(42,38,34,.25);text-decoration:none;transition:color .3s;font-variant-numeric:tabular-nums}
+
+.hero-coords a:hover{color:rgba(42,38,34,.5)}
+
+
+
+/* Street-view villa */
+.hero-villa-3d{width:440px;max-width:88vw;height:220px;margin-bottom:36px;opacity:0;animation:fadeUp .6s .8s forwards}
+.villa-3d-inner{width:100%;height:100%}
+
+/* Draw animation */
+.villa-draw-line{fill:none;stroke:rgba(42,38,34,.25);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1400;stroke-dashoffset:1400;animation:drawLine 2.8s 1s ease forwards}
+@keyframes drawLine{to{stroke-dashoffset:0}}
+
+
+
+/* English name — large, center, stark but not harsh */
+
+.hero-english{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,7vw,5rem);font-weight:400;color:rgba(42,38,34,.75);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;opacity:0;animation:fadeUp .8s 2.8s forwards;line-height:1.1}
+
+
+
+/* Subtitle — typewriter */
+.hero-sub{margin-top:16px;font-family:'Courier Prime',monospace;font-size:.95rem;color:rgba(42,38,34,.45);font-weight:400;line-height:1.6;opacity:0;animation:fadeUp .6s 3.2s forwards}
+.hero-sub .typed{display:inline;border-right:2px solid rgba(42,38,34,.3);padding-right:3px;animation:blink .8s step-end infinite}
+@keyframes blink{0%,100%{border-color:rgba(42,38,34,.3)}50%{border-color:transparent}}
+
+
+
+/* Material chips on dark bg */
+
+.material-chips{display:flex;gap:16px;margin-top:36px;opacity:0;animation:fadeUp .8s 3.5s forwards}
+
+.chip{display:flex;align-items:center;gap:10px;padding:10px 20px 10px 10px;border:1px solid rgba(42,38,34,.1);border-radius:40px;cursor:pointer;transition:all .35s;background:rgba(255,255,255,.3);backdrop-filter:blur(8px)}
+
+.chip:hover{border-color:rgba(42,38,34,.2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(42,38,34,.06);background:rgba(255,255,255,.4)}
+
+.chip-swatch{width:28px;height:28px;border-radius:50%;flex-shrink:0}
+
+.chip-swatch.c-sw{background:linear-gradient(135deg,var(--concrete),var(--concrete-light))}
+
+.chip-swatch.m-sw{background:linear-gradient(135deg,var(--beige-marble-deep),var(--beige-marble))}
+
+.chip-swatch.w-sw{background:linear-gradient(135deg,var(--wood-warm),var(--wood-light))}
+
+.chip-text{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(42,38,34,.55)}
+
+
+
+/* Page sections */
+
+.page-hero{padding:100px 48px 60px;max-width:900px}
+
+.page-icon{display:none}
+
+/* Material ribbon headers */
+
+.material-ribbon{margin:0 0 40px;width:100%;height:200px;position:relative;overflow:hidden;border-bottom:1px solid rgba(42,38,34,.06)}
+
+.material-ribbon svg{width:100%;height:200px;display:block;position:absolute;top:0;left:0;right:0}
+
+.material-ribbon-label{position:absolute;bottom:16px;left:48px;font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;color:rgba(42,38,34,.5);font-style:italic}
+
+
+
+/* Hover info overlay for materials */
+
+.material-ribbon .ribbon-info{position:absolute;inset:0;background:rgba(250,250,247,.92);backdrop-filter:blur(12px);opacity:0;transition:opacity .4s;display:flex;align-items:flex-start;padding:20px 48px;pointer-events:none;overflow-y:auto}
+
+.material-ribbon:hover .ribbon-info{opacity:1;pointer-events:auto}
+
+.ribbon-info-content{max-width:700px}
+
+.ribbon-info-content h4{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;color:var(--charcoal);margin-bottom:6px}
+
+.ribbon-info-content p{font-size:.78rem;color:var(--warm-grey);font-weight:300;line-height:1.6;margin-bottom:4px}
+
+.ribbon-info-content .info-detail{font-size:.72rem;color:var(--charcoal);line-height:1.55;font-weight:300}
+
+.ribbon-info-content .info-detail strong{font-weight:500;color:var(--charcoal)}
+
+
+
+@media(max-width:768px){
+
+  .material-ribbon{height:140px}
+
+  .material-ribbon-label{left:24px;bottom:12px;font-size:1rem}
+
+  .ribbon-info{padding:0 24px}
+
+}
+
+.page-hero h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:300;line-height:1.1;margin-bottom:16px}
+
+.page-hero h2 em{font-style:italic;font-weight:400;color:var(--warm-grey)}
+
+.page-desc{font-size:1rem;color:var(--warm-grey);font-weight:300;line-height:1.7;max-width:540px}
+
+
+
+.floor-plan-wrap{margin:0 48px 48px;padding:40px;background:#fff;border:1px solid rgba(42,38,34,.07);border-radius:20px;display:flex;justify-content:center}
+
+.floor-plan-wrap svg{max-width:100%;height:auto}
+
+.plan-room{fill:rgba(42,38,34,.02);stroke:var(--ral9006);stroke-width:.7;rx:1}
+
+.plan-room:hover{fill:rgba(42,38,34,.05)}
+
+.plan-wall{stroke:var(--charcoal);stroke-width:2;fill:none}
+
+.plan-win{stroke:#8EBFC4;stroke-width:2.5;fill:none;stroke-linecap:round}
+
+.plan-lbl{font-family:'DM Sans',sans-serif;font-size:6.5px;fill:var(--warm-grey);text-anchor:middle;letter-spacing:.04em}
+
+.plan-lbl-lg{font-family:'DM Sans',sans-serif;font-size:8px;fill:var(--charcoal);text-anchor:middle;font-weight:500}
+
+.plan-svc{fill:rgba(42,38,34,.03);stroke:var(--ral9006);stroke-width:.7;stroke-dasharray:3,2}
+
+.plan-void{fill:none;stroke:var(--ral9006);stroke-width:.6;stroke-dasharray:3,2}
+
+.plan-stair{fill:none;stroke:var(--ral9006);stroke-width:.4}
+
+.plan-tree{fill:var(--sage-herb);opacity:.3}
+
+.plan-grass{fill:var(--grass);opacity:.08}
+
+.plan-mat-note{font-family:'Cormorant Garamond',serif;font-size:10px;text-anchor:middle;font-style:italic}
+
+
+
+.material-bar{margin:0 48px 48px;padding:28px 32px;border-radius:20px;display:flex;align-items:center;gap:24px;border:1px solid rgba(42,38,34,.08);background:#fff}
+
+.mat-swatch{width:48px;height:48px;border-radius:12px;flex-shrink:0}
+
+.mat-info h4{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;margin-bottom:4px}
+
+.mat-info p{font-size:.8rem;color:var(--warm-grey);font-weight:300}
+
+
+
+.ideas-section{padding:0 48px 80px}
+
+.ideas-section h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;margin-bottom:8px}
+
+.ideas-sub{font-size:.85rem;color:var(--warm-grey);font-weight:300;margin-bottom:32px}
+
+.ideas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+
+.idea-card{background:#fff;border:1px solid rgba(42,38,34,.07);border-radius:16px;padding:28px;cursor:pointer;transition:all .4s cubic-bezier(.25,.8,.25,1);position:relative;overflow:hidden}
+
+.idea-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:0;background:var(--accent,var(--sage-herb));border-radius:0 0 4px 0;transition:height .4s}
+
+.idea-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(42,38,34,.07);border-color:rgba(42,38,34,.12)}
+
+.idea-card:hover::before{height:100%}
+
+.idea-tag{display:inline-block;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--warm-grey);background:var(--linen);padding:4px 12px;border-radius:20px;margin-bottom:16px}
+
+.idea-card h4{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:400;margin-bottom:10px;line-height:1.3}
+
+.idea-card p{font-size:.82rem;color:var(--warm-grey);font-weight:300;line-height:1.65}
+
+
+
+.color-band{margin:0 48px 48px;display:flex;border-radius:16px;overflow:hidden;height:64px}
+
+.color-band div{flex:1;display:flex;align-items:center;justify-content:center;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;font-weight:500;text-shadow:0 1px 4px rgba(0,0,0,.15);transition:flex .4s;cursor:pointer}
+
+.color-band div:hover{flex:1.8}
+
+
+
+/* Map section */
+
+.map-section{padding:0 48px 60px;text-align:center;opacity:0;animation:fadeUp .8s 1.1s forwards}
+
+.map-wrap{background:#fff;border:1px solid rgba(42,38,34,.07);border-radius:20px;overflow:hidden;max-width:700px;margin:0 auto}
+
+.map-wrap iframe{width:100%;height:360px;border:none;display:block;filter:saturate(.8) contrast(1.05)}
+
+.map-coords{padding:16px 24px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(42,38,34,.06)}
+
+.map-coords .coords-label{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--warm-grey)}
+
+.map-coords a{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--charcoal);text-decoration:none;font-weight:400;transition:color .3s;letter-spacing:.02em}
+
+.map-coords a:hover{color:var(--warm-grey)}
+
+
+
+footer{padding:40px 48px;border-top:1px solid rgba(42,38,34,.06);display:flex;justify-content:space-between;align-items:center}
+
+.footer-left{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--warm-grey);font-weight:300}
+
+.footer-right{font-size:.7rem;color:var(--concrete-light);letter-spacing:.08em}
+
+
+
+/* ═══ BOTANICAL CARDS ═══ */
+
+.botanical-section{padding:0 48px 80px}
+
+.botanical-section h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;margin-bottom:8px}
+
+.botanical-sub{font-size:.85rem;color:var(--warm-grey);font-weight:300;margin-bottom:12px}
+
+.botanical-category{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;color:var(--warm-grey);font-style:italic;margin:32px 0 16px;padding-bottom:8px;border-bottom:1px solid rgba(42,38,34,.06)}
+
+.botanical-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+
+
+
+.plant-card{background:#fff;border:1px solid rgba(42,38,34,.06);border-radius:16px;padding:20px 16px 16px;text-align:center;cursor:default;transition:all .4s cubic-bezier(.25,.8,.25,1);position:relative;overflow:hidden}
+
+.plant-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(42,38,34,.08);border-color:rgba(42,38,34,.12)}
+
+.plant-card svg{width:110px;height:130px;margin:0 auto 10px;display:block}
+
+.plant-card .plant-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;color:var(--charcoal);margin-bottom:2px}
+
+.plant-card .plant-latin{font-size:.6rem;color:var(--warm-grey);font-style:italic;margin-bottom:8px}
+
+
+
+/* Info panel - appears on hover */
+
+.plant-info{max-height:0;overflow:hidden;transition:max-height .5s ease,opacity .4s;opacity:0;text-align:left;padding:0 4px}
+
+.plant-card:hover .plant-info{max-height:200px;opacity:1}
+
+.plant-info .info-blurb{font-size:.72rem;color:var(--charcoal);line-height:1.6;margin-bottom:6px;font-weight:300}
+
+.plant-info .info-benefit{font-size:.68rem;color:var(--sage-herb);line-height:1.5;margin-bottom:8px;font-weight:400;padding-left:10px;border-left:2px solid var(--sage-herb)}
+
+.plant-info .wiki-link{font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--warm-grey);text-decoration:none;transition:color .2s}
+
+.plant-info .wiki-link:hover{color:var(--charcoal)}
+
+
+
+/* Animations */
+
+@keyframes sway{0%,100%{transform:rotate(0)}25%{transform:rotate(2.5deg)}75%{transform:rotate(-2.5deg)}}
+
+@keyframes swayBig{0%,100%{transform:rotate(0)}25%{transform:rotate(4deg)}75%{transform:rotate(-4deg)}}
+
+@keyframes bloomPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+
+@keyframes leafRustle{0%,100%{transform:rotate(0) scale(1)}33%{transform:rotate(1.5deg) scale(1.02)}66%{transform:rotate(-1deg) scale(.99)}}
+
+@keyframes gentleBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
+.plant-card:hover .anim-sway{animation:sway 2s ease-in-out infinite;transform-origin:bottom center}
+
+.plant-card:hover .anim-sway-big{animation:swayBig 1.8s ease-in-out infinite;transform-origin:bottom center}
+
+.plant-card:hover .anim-bloom{animation:bloomPulse 1.5s ease-in-out infinite;transform-origin:center}
+
+.plant-card:hover .anim-rustle{animation:leafRustle 1.2s ease-in-out infinite;transform-origin:bottom center}
+
+.plant-card:hover .anim-bob{animation:gentleBob 2s ease-in-out infinite}
+
+.plant-card .hover-reveal{opacity:.25;transition:opacity .6s}
+
+.plant-card:hover .hover-reveal{opacity:1}
+
+
+
+@media(max-width:768px){
+
+  nav{padding:0 20px}.nav-links{gap:2px;flex-wrap:wrap;justify-content:flex-end}.nav-links li a{padding:6px 10px;font-size:.62rem}
+
+  .hero-arabic{top:85px;left:24px;font-size:1.6rem}
+
+  .hero-content{padding:30px 24px}
+
+  .hero-villa-3d{width:300px;height:160px}
+
+  .hero-english{font-size:2.2rem}
+
+  .band-labels{right:12px;padding:90px 0}
+
+  .material-chips{flex-direction:column;align-items:center}
+
+  .page-hero,.ideas-section,.botanical-section{padding-left:24px;padding-right:24px}
+
+  .material-bar,.floor-plan-wrap{margin:0 24px 32px}
+
+  .material-bar{flex-direction:column;text-align:center}
+
+  .color-band{margin:0 24px 32px;height:48px}.color-band div{font-size:.5rem}
+
+  .ideas-grid{grid-template-columns:1fr}.botanical-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+
+  .map-section{padding:0 24px 40px}
+
+  footer{padding:24px;flex-direction:column;gap:12px;text-align:center}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+
+<nav>
+
+  <div class="logo" onclick="showPage('home')">Bait <i>Hoyamal</i></div>
+
+  <ul class="nav-links">
+
+    <li><a href="#" data-page="home" class="active">Home</a></li>
+
+    <li><a href="#" data-page="garden">Garden</a></li>
+
+    <li><a href="#" data-page="outdoor">Outdoor</a></li>
+
+    <li><a href="#" data-page="basement">Basement</a></li>
+
+    <li><a href="#" data-page="ground">Ground</a></li>
+
+    <li><a href="#" data-page="first">First Floor</a></li>
+
+  </ul>
+
+</nav>
+
+
+
+<!-- HOME -->
+
+<div class="page active" id="page-home">
+
+  <div class="hero">
+
+    <!-- Blended material bands -->
+
+    <div class="hero-bands"></div>
+
+
+
+    <!-- Material labels on right edge -->
+
+    <div class="band-labels">
+
+      <span class="band-label">Concrete</span>
+
+      <span class="band-label">Marble</span>
+
+      <span class="band-label">Wood</span>
+
+    </div>
+
+
+
+    <!-- Arabic name — top left -->
+
+    <div class="hero-arabic">بيت هويامال</div>
+
+
+
+    <!-- Content -->
+
+    <div class="hero-content">
+
+      <!-- Coordinates -->
+
+      <div class="hero-coords"><a href="https://www.google.com/maps?q=25.232003,55.530678" target="_blank">25.232003 &nbsp;·&nbsp; 55.530678</a></div>
+
+
+
+      <!-- Street-view Villa -->
+      <div class="hero-villa-3d">
+        <div class="villa-3d-inner">
+          <svg viewBox="0 0 440 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <!-- Ground line -->
+            <line x1="0" y1="195" x2="440" y2="195" stroke="rgba(42,38,34,.08)" stroke-width=".5"/>
+
+            <!-- MAIN BODY — ground floor + first floor, front facade -->
+            <!-- Ground floor wall -->
+            <rect x="40" y="120" width="280" height="75" fill="rgba(42,38,34,.03)" stroke="rgba(42,38,34,.12)" stroke-width="1"/>
+            <!-- First floor wall -->
+            <rect x="40" y="50" width="280" height="72" fill="rgba(42,38,34,.025)" stroke="rgba(42,38,34,.1)" stroke-width="1"/>
+            <!-- Parapet / roof edge -->
+            <rect x="38" y="46" width="284" height="6" fill="rgba(42,38,34,.04)" stroke="rgba(42,38,34,.1)" stroke-width=".8"/>
+
+            <!-- UPPER WING — taller section on the right (bedroom wing), full height to ground -->
+            <!-- This wing is taller (goes higher) but still sits on the ground -->
+            <rect x="260" y="18" width="100" height="177" fill="rgba(42,38,34,.02)" stroke="rgba(42,38,34,.1)" stroke-width="1"/>
+            <!-- Upper wing parapet — higher than main body parapet -->
+            <rect x="258" y="14" width="104" height="6" fill="rgba(42,38,34,.04)" stroke="rgba(42,38,34,.1)" stroke-width=".8"/>
+            <!-- Upper wing floor lines -->
+            <line x1="260" y1="122" x2="360" y2="122" stroke="rgba(42,38,34,.06)" stroke-width=".5" stroke-dasharray="4,3"/>
+
+            <!-- Erase overlapping strokes where main body meets wing -->
+            <rect x="261" y="51" width="58" height="70" fill="rgba(42,38,34,.025)" stroke="none"/>
+            <rect x="261" y="121" width="58" height="73" fill="rgba(42,38,34,.03)" stroke="none"/>
+
+            <!-- Floor line between ground and first -->
+            <line x1="40" y1="122" x2="320" y2="122" stroke="rgba(42,38,34,.06)" stroke-width=".5" stroke-dasharray="4,3"/>
+
+            <!-- WINDOWS — ground floor, floor-to-ceiling -->
+            <g fill="rgba(142,191,196,.1)" stroke="rgba(165,165,160,.5)" stroke-width="1.2">
+              <rect x="50" y="124" width="50" height="69" rx="1"/>
+              <rect x="108" y="124" width="50" height="69" rx="1"/>
+              <rect x="166" y="124" width="65" height="69" rx="1"/>
+            </g>
+            <!-- Mullions ground floor -->
+            <g stroke="rgba(165,165,160,.35)" stroke-width=".8">
+              <line x1="75" y1="124" x2="75" y2="193"/><line x1="133" y1="124" x2="133" y2="193"/>
+              <line x1="198" y1="124" x2="198" y2="193"/>
+            </g>
+            <!-- Horizontal transom -->
+            <g stroke="rgba(165,165,160,.25)" stroke-width=".5">
+              <line x1="50" y1="160" x2="100" y2="160"/><line x1="108" y1="160" x2="158" y2="160"/><line x1="166" y1="160" x2="231" y2="160"/>
+            </g>
+
+            <!-- WINDOWS — first floor, floor-to-ceiling -->
+            <g fill="rgba(142,191,196,.08)" stroke="rgba(165,165,160,.4)" stroke-width="1">
+              <rect x="50" y="52" width="45" height="68" rx="1"/>
+              <rect x="103" y="52" width="45" height="68" rx="1"/>
+              <rect x="156" y="52" width="55" height="68" rx="1"/>
+              <rect x="219" y="52" width="38" height="68" rx="1"/>
+            </g>
+            <!-- Mullions first floor -->
+            <g stroke="rgba(165,165,160,.3)" stroke-width=".6">
+              <line x1="72" y1="52" x2="72" y2="120"/><line x1="125" y1="52" x2="125" y2="120"/>
+              <line x1="183" y1="52" x2="183" y2="120"/><line x1="238" y1="52" x2="238" y2="120"/>
+            </g>
+            <!-- Horizontal transom -->
+            <g stroke="rgba(165,165,160,.2)" stroke-width=".5">
+              <line x1="50" y1="88" x2="95" y2="88"/><line x1="103" y1="88" x2="148" y2="88"/><line x1="156" y1="88" x2="211" y2="88"/><line x1="219" y1="88" x2="257" y2="88"/>
+            </g>
+
+            <!-- WINDOWS — upper wing first floor, floor-to-ceiling -->
+            <g fill="rgba(142,191,196,.08)" stroke="rgba(165,165,160,.4)" stroke-width="1">
+              <rect x="268" y="20" width="40" height="100" rx="1"/>
+              <rect x="316" y="20" width="40" height="100" rx="1"/>
+            </g>
+            <g stroke="rgba(165,165,160,.3)" stroke-width=".6">
+              <line x1="288" y1="20" x2="288" y2="120"/><line x1="336" y1="20" x2="336" y2="120"/>
+            </g>
+            <g stroke="rgba(165,165,160,.2)" stroke-width=".5">
+              <line x1="268" y1="70" x2="308" y2="70"/><line x1="316" y1="70" x2="356" y2="70"/>
+            </g>
+
+            <!-- WINDOWS — upper wing ground floor, floor-to-ceiling -->
+            <g fill="rgba(142,191,196,.1)" stroke="rgba(165,165,160,.5)" stroke-width="1">
+              <rect x="268" y="124" width="40" height="69" rx="1"/>
+              <rect x="316" y="124" width="40" height="69" rx="1"/>
+            </g>
+            <g stroke="rgba(165,165,160,.35)" stroke-width=".6">
+              <line x1="288" y1="124" x2="288" y2="193"/><line x1="336" y1="124" x2="336" y2="193"/>
+            </g>
+            <g stroke="rgba(165,165,160,.25)" stroke-width=".5">
+              <line x1="268" y1="160" x2="308" y2="160"/><line x1="316" y1="160" x2="356" y2="160"/>
+            </g>
+
+            <!-- FRONT DOOR — on front facade, right of center, before upper wing -->
+            <rect x="236" y="124" width="22" height="69" rx="1.5" fill="rgba(200,169,126,.15)" stroke="rgba(166,139,100,.4)" stroke-width="1.2"/>
+            <circle cx="252" cy="162" r="1.5" fill="rgba(166,139,100,.35)"/>
+            <!-- Canopy above door -->
+            <line x1="230" y1="120" x2="264" y2="120" stroke="rgba(42,38,34,.12)" stroke-width="1.5"/>
+            <line x1="230" y1="120" x2="230" y2="124" stroke="rgba(42,38,34,.08)" stroke-width=".8"/>
+            <line x1="264" y1="120" x2="264" y2="124" stroke="rgba(42,38,34,.08)" stroke-width=".8"/>
+
+            <!-- Glass railing hint on first floor (above entrance) -->
+            <line x1="240" y1="120" x2="320" y2="120" stroke="rgba(142,191,196,.2)" stroke-width="1.5"/>
+
+            <!-- SERVICE BLOCK — background, slightly smaller -->
+            <rect x="370" y="90" width="50" height="105" rx="1" fill="none" stroke="rgba(42,38,34,.06)" stroke-width=".5" stroke-dasharray="3,2"/>
+            <text x="395" y="148" font-family="'DM Sans',sans-serif" font-size="4.5" fill="rgba(42,38,34,.1)" text-anchor="middle">SVC</text>
+
+            <!-- Ground / driveway hint -->
+            <rect x="0" y="195" width="440" height="25" fill="rgba(42,38,34,.015)"/>
+
+            <!-- Subtle tree silhouettes flanking -->
+            <g fill="rgba(139,168,136,.1)">
+              <ellipse cx="10" cy="130" rx="18" ry="40"/>
+              <ellipse cx="430" cy="120" rx="15" ry="45"/>
+            </g>
+            <g stroke="rgba(107,92,74,.06)" stroke-width="1.5">
+              <line x1="10" y1="170" x2="10" y2="195"/><line x1="430" y1="165" x2="430" y2="195"/>
+            </g>
+
+            <!-- Draw animation — traces the L-shaped silhouette from street view -->
+            <path class="villa-draw-line" d="M40,195 L40,46 L258,46 L258,14 L362,14 L362,195 L360,195 L360,18 L260,18 L260,50 L320,50 L320,195 L40,195"/>
+          </svg>
+        </div>
+      </div>
+
+
+
+      <!-- English name — large, center -->
+
+      <div class="hero-english">Bait Hoyamal</div>
+
+
+
+      <!-- Subtitle -->
+
+      <p class="hero-sub"><span class="typed" id="typed-sub"></span></p>
+
+
+
+      <!-- Material chips -->
+
+      <div class="material-chips">
+
+        <div class="chip" onclick="showPage('basement')"><div class="chip-swatch c-sw"></div><span class="chip-text">Concrete · Basement</span></div>
+
+        <div class="chip" onclick="showPage('ground')"><div class="chip-swatch m-sw"></div><span class="chip-text">Marble · Ground</span></div>
+
+        <div class="chip" onclick="showPage('first')"><div class="chip-swatch w-sw"></div><span class="chip-text">Wood · First Floor</span></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- Map -->
+
+  <div class="map-section" style="animation-delay:4s">
+
+    <div class="map-wrap">
+
+      <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1800!2d55.530678!3d25.232003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjXCsDEzJzU1LjIiTiA1NcKwMzEnNTAuNCJF!5e1!3m2!1sen!2sae!4v1" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+
+      <div class="map-coords">
+
+        <span class="coords-label">Al Khawaneej 2nd, Dubai</span>
+
+        <a href="https://www.google.com/maps?q=25.232003,55.530678" target="_blank">25.232003, 55.530678 →</a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- ═══════ GARDEN ═══════ -->
+
+<div class="page" id="page-garden">
+
+  <div class="material-ribbon">
+    <svg viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="1200" height="200" fill="#E2DCD0"/>
+      <!-- Sky -->
+      <rect x="0" y="0" width="1200" height="55" fill="#E8E4DA"/>
+      <!-- Grass surface -->
+      <path d="M0 78 Q100 74 200 78 Q300 82 400 76 Q500 74 600 78 Q700 82 800 76 Q900 74 1000 78 Q1100 80 1200 76 L1200 200 L0 200Z" fill="#C8C0AA" opacity=".2"/>
+      <path d="M0 82 Q200 78 400 82 Q600 86 800 80 Q1000 78 1200 82" stroke="#8BA888" stroke-width="1.2" fill="none" opacity=".4"/>
+      <!-- Grass blades -->
+      <g stroke="#7DA36B" stroke-width="1.2" fill="none" opacity=".3" stroke-linecap="round">
+        <path d="M40 82 Q38 68 42 54"/><path d="M46 81 Q48 70 44 56"/>
+        <path d="M120 80 Q118 66 122 52"/><path d="M126 81 Q128 68 124 54"/>
+        <path d="M200 82 Q198 68 202 54"/><path d="M206 81 Q208 70 204 56"/>
+        <path d="M300 80 Q298 66 302 52"/><path d="M306 81 Q308 68 304 54"/>
+        <path d="M400 82 Q398 68 402 54"/><path d="M406 81 Q408 70 404 56"/>
+        <path d="M500 80 Q498 66 502 52"/><path d="M506 81 Q508 68 504 54"/>
+        <path d="M600 82 Q598 68 602 54"/><path d="M700 80 Q698 66 702 52"/>
+        <path d="M800 82 Q798 68 802 54"/><path d="M900 80 Q898 66 902 52"/>
+        <path d="M1000 82 Q998 68 1002 54"/><path d="M1100 80 Q1098 66 1102 52"/>
+      </g>
+      <!-- Topsoil -->
+      <rect x="0" y="86" width="1200" height="38" fill="#7A6A55" opacity=".08"/>
+      <g fill="#6B5B4A" opacity=".05"><circle cx="80" cy="98" r="2"/><circle cx="220" cy="106" r="2.5"/><circle cx="400" cy="94" r="1.8"/><circle cx="580" cy="104" r="2.2"/><circle cx="750" cy="96" r="2"/><circle cx="920" cy="108" r="2.5"/><circle cx="1080" cy="100" r="1.8"/></g>
+      <!-- Subsoil -->
+      <line x1="0" y1="124" x2="1200" y2="124" stroke="#6B5B4A" stroke-width=".3" opacity=".1" stroke-dasharray="4,3"/>
+      <rect x="0" y="124" width="1200" height="38" fill="#B8AC96" opacity=".06"/>
+      <g fill="#A09080" opacity=".05"><ellipse cx="120" cy="140" rx="8" ry="5"/><ellipse cx="380" cy="146" rx="10" ry="6"/><ellipse cx="640" cy="138" rx="7" ry="8"/><ellipse cx="900" cy="144" rx="9" ry="5"/><ellipse cx="1100" cy="140" rx="7" ry="6"/></g>
+      <!-- Parent rock -->
+      <line x1="0" y1="162" x2="1200" y2="162" stroke="#6B5B4A" stroke-width=".3" opacity=".1" stroke-dasharray="4,3"/>
+      <rect x="0" y="162" width="1200" height="38" fill="#AAA59E" opacity=".05"/>
+      <!-- Root systems -->
+      <g stroke="#7A6850" stroke-width=".6" fill="none" opacity=".1">
+        <path d="M150 86 Q145 105 140 125 Q136 140 132 155"/><path d="M150 86 Q155 102 160 120 Q164 138 168 152"/>
+        <path d="M150 86 Q150 108 150 130 Q150 145 150 162"/>
+        <path d="M550 84 Q545 102 540 122 Q536 138 532 152"/><path d="M550 84 Q555 100 560 118 Q564 135 568 150"/>
+        <path d="M550 84 Q550 105 550 128 Q550 142 550 160"/>
+        <path d="M950 86 Q945 104 940 124 Q936 140 932 154"/><path d="M950 86 Q955 102 960 120 Q964 136 968 152"/>
+      </g>
+      <!-- Small flowers -->
+      <g opacity=".25">
+        <circle cx="250" cy="70" r="3" fill="#9B8EC4"/><circle cx="252" cy="66" r="2.5" fill="#B0A3D8"/>
+        <circle cx="650" cy="68" r="3.5" fill="#C44D72"/><circle cx="653" cy="64" r="2.8" fill="#D45A80"/>
+        <circle cx="850" cy="70" r="3" fill="#E8C84A"/>
+      </g>
+    </svg>
+    <span class="material-ribbon-label">soil · grass · roots</span>
+    <div class="ribbon-info">
+      <div class="ribbon-info-content">
+        <h4>The Living Ground</h4>
+        <p>A garden isn't decoration — it's a biological system. Beneath the grass is a living architecture of soil horizons, microbial networks, and root systems that mirror the structure of the house above. Topsoil breathes. Roots communicate through mycorrhizal fungi. An earthworm turns more soil in a year than any machine.</p>
+        <p class="info-detail"><strong>The biophilic case:</strong> Humans evolved in grassland. The sight of green ground with scattered trees triggers a measurable drop in cortisol. This garden — grass, herbs within reach, a thick canopy for enclosure — isn't landscaping. It's a nervous system reset, built into the plot.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-hero"><h2>The <em>Garden</em></h2><p class="page-desc">Grass, herbs and small flowers close to the house. A thick canopy of trees along the boundary walls for privacy. Hover over each plant to learn more.</p></div>
+
+
+
+  <!-- COLOR PALETTE -->
+
+  <div class="color-band">
+
+    <div style="background:#9B8EC4">Lavender</div>
+
+    <div style="background:#8BA888">Sage</div>
+
+    <div style="background:#6B8C6B">Rosemary</div>
+
+    <div style="background:#C44D72">Bougainvillea</div>
+
+    <div style="background:#D64530">Poinciana</div>
+
+    <div style="background:#E8C84A">Acacia</div>
+
+    <div style="background:#C8A030">Sidr</div>
+
+    <div style="background:#5A2050">Mulberry</div>
+
+    <div style="background:#7DA36B">Grass</div>
+
+    <div style="background:#6B5B4A">Earth</div>
+
+  </div>
+
+
+
+  <div class="botanical-section">
+
+    <h3>The Plant Palette</h3><p class="botanical-sub">Every plant that will live in the garden — hover to explore</p>
+
+
+
+    <div class="botanical-category">Herbs & Kitchen Garden</div>
+
+    <div class="botanical-grid">
+
+
+
+      <!-- LAVENDER -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-sway">
+
+          <line x1="45" y1="125" x2="38" y2="50" stroke="#6B8C5A" stroke-width="1.5" stroke-linecap="round"/>
+
+          <line x1="55" y1="125" x2="55" y2="42" stroke="#6B8C5A" stroke-width="1.5" stroke-linecap="round"/>
+
+          <line x1="65" y1="125" x2="72" y2="48" stroke="#6B8C5A" stroke-width="1.5" stroke-linecap="round"/>
+
+          <ellipse cx="35" cy="95" rx="9" ry="2.5" fill="#8BA888" transform="rotate(-30,35,95)"/>
+
+          <ellipse cx="68" cy="88" rx="9" ry="2.5" fill="#8BA888" transform="rotate(25,68,88)"/>
+
+          <ellipse cx="38" cy="78" rx="8" ry="2" fill="#8BA888" transform="rotate(-20,38,78)"/>
+
+          <ellipse cx="65" cy="72" rx="8" ry="2" fill="#8BA888" transform="rotate(20,65,72)"/>
+
+          <!-- Distinctive lavender flower spikes — tight clustered ovals -->
+
+          <g class="hover-reveal"><g class="anim-bloom">
+
+            <ellipse cx="38" cy="47" rx="4" ry="3.5" fill="#9B8EC4"/><ellipse cx="38" cy="40" rx="3.5" ry="3" fill="#9B8EC4"/><ellipse cx="38" cy="34" rx="3" ry="2.5" fill="#B0A3D8"/><ellipse cx="38" cy="29" rx="2" ry="2" fill="#B0A3D8"/>
+
+            <ellipse cx="55" cy="40" rx="4" ry="3.5" fill="#9B8EC4"/><ellipse cx="55" cy="33" rx="3.5" ry="3" fill="#9B8EC4"/><ellipse cx="55" cy="27" rx="3" ry="2.5" fill="#B0A3D8"/><ellipse cx="55" cy="22" rx="2" ry="2" fill="#B0A3D8"/>
+
+            <ellipse cx="72" cy="45" rx="4" ry="3.5" fill="#9B8EC4"/><ellipse cx="72" cy="38" rx="3.5" ry="3" fill="#9B8EC4"/><ellipse cx="72" cy="32" rx="3" ry="2.5" fill="#B0A3D8"/><ellipse cx="72" cy="27" rx="2" ry="2" fill="#B0A3D8"/>
+
+          </g></g>
+
+        </g></svg>
+
+        <div class="plant-name">Lavender</div>
+
+        <div class="plant-latin">Lavandula angustifolia</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">Aromatic Mediterranean herb with silvery foliage and dense purple flower spikes. Thrives in Dubai's heat with minimal water once established.</p>
+
+          <p class="info-benefit">Natural insect repellent — keeps mosquitoes away from outdoor sitting areas.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Lavandula" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- SAGE -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-rustle">
+
+          <line x1="55" y1="125" x2="55" y2="55" stroke="#6B7C5A" stroke-width="2" stroke-linecap="round"/>
+
+          <line x1="55" y1="95" x2="32" y2="78" stroke="#6B7C5A" stroke-width="1.2" stroke-linecap="round"/>
+
+          <line x1="55" y1="82" x2="78" y2="65" stroke="#6B7C5A" stroke-width="1.2" stroke-linecap="round"/>
+
+          <!-- Distinctive sage leaves — large, textured, slightly fuzzy ovals -->
+
+          <ellipse cx="55" cy="52" rx="14" ry="8" fill="#8BA888" opacity=".9"/><ellipse cx="55" cy="52" rx="10" ry="5.5" fill="#96B89A" opacity=".3"/>
+
+          <ellipse cx="30" cy="75" rx="13" ry="7" fill="#8BA888" opacity=".85" transform="rotate(-15,30,75)"/><ellipse cx="30" cy="75" rx="9" ry="5" fill="#96B89A" opacity=".25" transform="rotate(-15,30,75)"/>
+
+          <ellipse cx="80" cy="62" rx="13" ry="7" fill="#8BA888" opacity=".85" transform="rotate(10,80,62)"/>
+
+          <ellipse cx="40" cy="95" rx="12" ry="6.5" fill="#8BA888" opacity=".8" transform="rotate(-10,40,95)"/>
+
+          <ellipse cx="68" cy="100" rx="12" ry="6.5" fill="#8BA888" opacity=".8" transform="rotate(8,68,100)"/>
+
+        </g></svg>
+
+        <div class="plant-name">Sage</div>
+
+        <div class="plant-latin">Salvia officinalis</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">Evergreen herb with soft, velvety silver-green leaves. Produces small violet flowers. A staple of Mediterranean cooking and traditional medicine.</p>
+
+          <p class="info-benefit">Culinary essential — fresh sage leaves for roasts, pastas, and butter sauces steps from the kitchen.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Salvia_officinalis" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ROSEMARY -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-sway">
+
+          <line x1="55" y1="125" x2="55" y2="22" stroke="#5A7355" stroke-width="2.2" stroke-linecap="round"/>
+
+          <line x1="55" y1="105" x2="35" y2="82" stroke="#5A7355" stroke-width="1.3" stroke-linecap="round"/>
+
+          <line x1="55" y1="88" x2="75" y2="65" stroke="#5A7355" stroke-width="1.3" stroke-linecap="round"/>
+
+          <!-- Distinctive rosemary — dense paired needle leaves along stems -->
+
+          <g fill="#6B8C6B">
+
+            <ellipse cx="49" cy="28" rx="1.8" ry="7" transform="rotate(-18,49,28)"/><ellipse cx="61" cy="28" rx="1.8" ry="7" transform="rotate(18,61,28)"/>
+
+            <ellipse cx="48" cy="42" rx="1.8" ry="7" transform="rotate(-22,48,42)"/><ellipse cx="62" cy="42" rx="1.8" ry="7" transform="rotate(22,62,42)"/>
+
+            <ellipse cx="49" cy="56" rx="1.8" ry="7" transform="rotate(-18,49,56)"/><ellipse cx="61" cy="56" rx="1.8" ry="7" transform="rotate(18,61,56)"/>
+
+            <ellipse cx="49" cy="70" rx="1.8" ry="7" transform="rotate(-20,49,70)"/><ellipse cx="61" cy="70" rx="1.8" ry="7" transform="rotate(20,61,70)"/>
+
+            <ellipse cx="49" cy="84" rx="1.8" ry="7" transform="rotate(-16,49,84)"/><ellipse cx="61" cy="84" rx="1.8" ry="7" transform="rotate(16,61,84)"/>
+
+            <!-- Branch needles -->
+
+            <ellipse cx="30" cy="80" rx="1.5" ry="6" transform="rotate(-35,30,80)"/><ellipse cx="38" cy="84" rx="1.5" ry="6" transform="rotate(-18,38,84)"/>
+
+            <ellipse cx="70" cy="63" rx="1.5" ry="6" transform="rotate(18,70,63)"/><ellipse cx="78" cy="67" rx="1.5" ry="6" transform="rotate(35,78,67)"/>
+
+          </g>
+
+          <g class="hover-reveal"><circle cx="50" cy="35" r="2.5" fill="#7BA3D4" opacity=".85"/><circle cx="60" cy="50" r="2" fill="#7BA3D4" opacity=".75"/><circle cx="48" cy="63" r="2.5" fill="#7BA3D4" opacity=".85"/><circle cx="58" cy="76" r="2" fill="#7BA3D4" opacity=".7"/></g>
+
+        </g></svg>
+
+        <div class="plant-name">Rosemary</div>
+
+        <div class="plant-latin">Salvia rosmarinus</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">Woody, evergreen herb with dense pine-like needles and a powerful aroma. Extremely drought-tolerant and loves full sun.</p>
+
+          <p class="info-benefit">Fragrant boundary — plant along pathways so brushing past releases scent.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Rosemary" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- PARSLEY -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-rustle">
+
+          <line x1="55" y1="125" x2="55" y2="65" stroke="#5A8040" stroke-width="1.8" stroke-linecap="round"/>
+
+          <line x1="55" y1="100" x2="38" y2="75" stroke="#5A8040" stroke-width="1.2" stroke-linecap="round"/>
+
+          <line x1="55" y1="95" x2="72" y2="70" stroke="#5A8040" stroke-width="1.2" stroke-linecap="round"/>
+
+          <line x1="55" y1="85" x2="42" y2="55" stroke="#5A8040" stroke-width="1.2" stroke-linecap="round"/>
+
+          <!-- Distinctive: flat tri-compound curly leaves -->
+
+          <g fill="#5AA038">
+
+            <circle cx="55" cy="60" r="5" opacity=".7"/><circle cx="50" cy="56" r="4" opacity=".6"/><circle cx="60" cy="56" r="4" opacity=".6"/><circle cx="55" cy="52" r="3.5" opacity=".5"/>
+
+            <circle cx="36" cy="70" r="4.5" opacity=".7"/><circle cx="32" cy="66" r="3.5" opacity=".6"/><circle cx="40" cy="66" r="3.5" opacity=".6"/>
+
+            <circle cx="74" cy="65" r="4.5" opacity=".7"/><circle cx="70" cy="61" r="3.5" opacity=".6"/><circle cx="78" cy="61" r="3.5" opacity=".6"/>
+
+            <circle cx="40" cy="50" r="4" opacity=".65"/><circle cx="36" cy="46" r="3" opacity=".55"/><circle cx="44" cy="46" r="3" opacity=".55"/>
+
+          </g>
+
+        </g></svg>
+
+        <div class="plant-name">Parsley</div>
+
+        <div class="plant-latin">Petroselinum crispum</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">Biennial herb with bright green, curly or flat compound leaves. Grows fast in cooler UAE months (Oct–Apr). Essential in tabbouleh and garnishing.</p>
+
+          <p class="info-benefit">Everyday garnish — a handful of parsley elevates almost any dish, and it's one of the easiest herbs to grow.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Parsley" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- MINT -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-rustle">
+
+          <line x1="55" y1="125" x2="55" y2="50" stroke="#3A7030" stroke-width="2" stroke-linecap="round"/>
+
+          <line x1="55" y1="105" x2="35" y2="90" stroke="#3A7030" stroke-width="1.2" stroke-linecap="round"/>
+
+          <line x1="55" y1="90" x2="75" y2="75" stroke="#3A7030" stroke-width="1.2" stroke-linecap="round"/>
+
+          <line x1="55" y1="75" x2="38" y2="60" stroke="#3A7030" stroke-width="1.2" stroke-linecap="round"/>
+
+          <!-- Distinctive: opposite serrated oval leaves -->
+
+          <g fill="#40A048">
+
+            <ellipse cx="32" cy="88" rx="9" ry="6" transform="rotate(-15,32,88)"/>
+
+            <ellipse cx="78" cy="73" rx="9" ry="6" transform="rotate(12,78,73)"/>
+
+            <ellipse cx="35" cy="58" rx="8" ry="5.5" transform="rotate(-10,35,58)"/>
+
+            <ellipse cx="55" cy="48" rx="7" ry="5" />
+
+          </g>
+
+          <!-- Vein lines -->
+
+          <line x1="27" y1="88" x2="37" y2="88" stroke="#2A6028" stroke-width=".4" opacity=".5"/>
+
+          <line x1="73" y1="73" x2="83" y2="73" stroke="#2A6028" stroke-width=".4" opacity=".5"/>
+
+          <!-- Tiny flower spike -->
+
+          <g class="hover-reveal"><ellipse cx="55" cy="42" rx="3" ry="6" fill="#C8A0D8" opacity=".7"/><ellipse cx="55" cy="36" rx="2.5" ry="4" fill="#D0B0E0" opacity=".6"/></g>
+
+        </g></svg>
+
+        <div class="plant-name">Mint</div>
+
+        <div class="plant-latin">Mentha spp.</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">Vigorous spreading herb with serrated, intensely aromatic leaves. Grows aggressively — best in pots or contained beds. Loves water and partial shade in UAE.</p>
+
+          <p class="info-benefit">Tea essential — fresh mint for daily chai, mojitos, and tabbouleh. Grows so fast you can't run out.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Mentha" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- BASIL -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-sway">
+
+          <line x1="55" y1="125" x2="55" y2="48" stroke="#3A6830" stroke-width="2" stroke-linecap="round"/>
+
+          <line x1="55" y1="105" x2="38" y2="88" stroke="#3A6830" stroke-width="1.2" stroke-linecap="round"/>
+
+          <line x1="55" y1="90" x2="72" y2="72" stroke="#3A6830" stroke-width="1.2" stroke-linecap="round"/>
+
+          <!-- Distinctive: glossy, cupped oval leaves in opposite pairs -->
+
+          <g fill="#3A8A28">
+
+            <ellipse cx="55" cy="45" rx="8" ry="6" opacity=".85"/>
+
+            <ellipse cx="36" cy="85" rx="9" ry="6.5" transform="rotate(-12,36,85)" opacity=".8"/>
+
+            <ellipse cx="74" cy="70" rx="9" ry="6.5" transform="rotate(10,74,70)" opacity=".8"/>
+
+            <ellipse cx="55" cy="62" rx="8" ry="5.5" opacity=".75"/>
+
+            <ellipse cx="42" cy="68" rx="7" ry="5" transform="rotate(-8,42,68)" opacity=".7"/>
+
+            <ellipse cx="68" cy="56" rx="7" ry="5" transform="rotate(8,68,56)" opacity=".7"/>
+
+          </g>
+
+          <!-- Gloss highlights -->
+
+          <ellipse cx="53" cy="43" rx="3" ry="2" fill="#50AA38" opacity=".3"/>
+
+          <ellipse cx="34" cy="83" rx="3.5" ry="2.5" fill="#50AA38" opacity=".25"/>
+
+          <g class="hover-reveal"><ellipse cx="55" cy="38" rx="3" ry="5" fill="#F0F0E8" opacity=".6"/><ellipse cx="55" cy="33" rx="2" ry="3" fill="#F0F0E8" opacity=".5"/></g>
+
+        </g></svg>
+
+        <div class="plant-name">Basil</div>
+
+        <div class="plant-latin">Ocimum basilicum</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">Aromatic annual with glossy, cupped green leaves and small white flower spikes. Grows well in UAE from October–April. The foundation of pesto and Caprese.</p>
+
+          <p class="info-benefit">Culinary star — fresh basil transforms Italian and Thai cooking, and the fragrance alone is worth growing it for.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Basil" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- JALAPEÑO -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-sway">
+
+          <line x1="55" y1="125" x2="55" y2="50" stroke="#4A7A30" stroke-width="2.5" stroke-linecap="round"/>
+
+          <line x1="55" y1="100" x2="35" y2="85" stroke="#4A7A30" stroke-width="1.5" stroke-linecap="round"/>
+
+          <line x1="55" y1="85" x2="78" y2="68" stroke="#4A7A30" stroke-width="1.5" stroke-linecap="round"/>
+
+          <!-- Leaves -->
+
+          <ellipse cx="33" cy="82" rx="8" ry="5.5" fill="#4A8A30" transform="rotate(-15,33,82)" opacity=".7"/>
+
+          <ellipse cx="80" cy="65" rx="8" ry="5.5" fill="#4A8A30" transform="rotate(12,80,65)" opacity=".7"/>
+
+          <ellipse cx="55" cy="55" rx="7" ry="5" fill="#4A8A30" opacity=".65"/>
+
+          <!-- Distinctive: hanging pepper pods -->
+
+          <g class="hover-reveal"><g class="anim-bob">
+
+            <path d="M42 92 Q40 100 42 108 Q43 110 44 108 Q46 100 44 92Z" fill="#2A7A18" stroke="#1A6010" stroke-width=".5"/>
+
+            <path d="M65 78 Q63 86 65 94 Q66 96 67 94 Q69 86 67 78Z" fill="#2A7A18" stroke="#1A6010" stroke-width=".5"/>
+
+            <path d="M55 65 Q53 73 55 82 Q56 84 57 82 Q59 73 57 65Z" fill="#C83020" stroke="#A82818" stroke-width=".5"/>
+
+          </g></g>
+
+        </g></svg>
+
+        <div class="plant-name">Jalapeño</div>
+
+        <div class="plant-latin">Capsicum annuum</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">Compact chilli plant producing thick-walled green pods that ripen to red. Thrives in UAE heat from February–June. Mild-to-medium heat (2,500–8,000 SHU).</p>
+
+          <p class="info-benefit">Fresh heat on demand — slice into sandwiches, pickle them, or char on the grill. One plant yields dozens of peppers.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Jalape%C3%B1o" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- CHERRY TOMATOES -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-sway">
+
+          <!-- Vine/stem -->
+
+          <path d="M55 125 Q52 100 50 85 Q48 70 55 55 Q60 45 58 35" stroke="#5A8A30" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+          <path d="M50 85 Q38 78 30 72" stroke="#5A8A30" stroke-width="1.2" fill="none"/>
+
+          <path d="M53 68 Q65 60 74 55" stroke="#5A8A30" stroke-width="1.2" fill="none"/>
+
+          <!-- Compound tomato leaves -->
+
+          <g fill="#5A9A30" opacity=".6">
+
+            <ellipse cx="28" cy="70" rx="7" ry="5" transform="rotate(-20,28,70)"/>
+
+            <ellipse cx="22" cy="74" rx="5" ry="3.5" transform="rotate(-30,22,74)"/>
+
+            <ellipse cx="76" cy="53" rx="7" ry="5" transform="rotate(15,76,53)"/>
+
+            <ellipse cx="82" cy="57" rx="5" ry="3.5" transform="rotate(25,82,57)"/>
+
+          </g>
+
+          <!-- Small star-shaped yellow flowers + cherry tomato clusters -->
+
+          <g class="hover-reveal"><g class="anim-bob">
+
+            <circle cx="58" cy="33" r="2" fill="#E8D040" opacity=".7"/>
+
+            <circle cx="52" cy="38" r="2" fill="#E8D040" opacity=".6"/>
+
+            <!-- Cherry tomato clusters -->
+
+            <circle cx="38" cy="90" r="5" fill="#D83020" opacity=".85"/><circle cx="38" cy="89" r="2" fill="#E85040" opacity=".3"/>
+
+            <circle cx="46" cy="95" r="4.5" fill="#D83020" opacity=".8"/>
+
+            <circle cx="32" cy="96" r="4" fill="#E84030" opacity=".75"/>
+
+            <circle cx="70" cy="65" r="4.5" fill="#D83020" opacity=".8"/><circle cx="70" cy="64" r="1.8" fill="#E85040" opacity=".3"/>
+
+            <circle cx="78" cy="62" r="4" fill="#E84030" opacity=".75"/>
+
+          </g></g>
+
+        </g></svg>
+
+        <div class="plant-name">Cherry Tomatoes</div>
+
+        <div class="plant-latin">Solanum lycopersicum var. cerasiforme</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">Prolific vining or bush plant producing clusters of small, sweet red tomatoes. Best planted Oct–Feb in UAE. Needs support and regular watering.</p>
+
+          <p class="info-benefit">Snack from the vine — nothing beats a sun-warm cherry tomato picked straight from the garden.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Cherry_tomato" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- AUBERGINE -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-sway">
+
+          <line x1="55" y1="125" x2="55" y2="50" stroke="#5A7A40" stroke-width="2.5" stroke-linecap="round"/>
+
+          <line x1="55" y1="100" x2="35" y2="82" stroke="#5A7A40" stroke-width="1.5" stroke-linecap="round"/>
+
+          <line x1="55" y1="80" x2="78" y2="62" stroke="#5A7A40" stroke-width="1.5" stroke-linecap="round"/>
+
+          <!-- Large fuzzy leaves -->
+
+          <ellipse cx="33" cy="80" rx="12" ry="8" fill="#5A8A38" transform="rotate(-12,33,80)" opacity=".65"/>
+
+          <ellipse cx="80" cy="60" rx="12" ry="8" fill="#5A8A38" transform="rotate(10,80,60)" opacity=".65"/>
+
+          <ellipse cx="55" cy="52" rx="10" ry="7" fill="#5A8A38" opacity=".6"/>
+
+          <!-- Star-shaped purple flower -->
+
+          <g class="hover-reveal">
+
+            <circle cx="55" cy="42" r="6" fill="#8868A8" opacity=".7"/><circle cx="55" cy="42" r="3" fill="#E8D040"/>
+
+            <!-- Distinctive: hanging glossy purple aubergine fruit -->
+
+            <g class="anim-bob">
+
+              <ellipse cx="40" cy="98" rx="6" ry="10" fill="#3A1848" opacity=".85"/><ellipse cx="39" cy="96" rx="3" ry="5" fill="#5A2868" opacity=".3"/>
+
+              <path d="M36 88 L40 86 L44 88" stroke="#4A8030" stroke-width="1.2" fill="#4A8030"/>
+
+              <ellipse cx="72" cy="75" rx="5.5" ry="9" fill="#3A1848" opacity=".8" transform="rotate(10,72,75)"/><ellipse cx="71" cy="73" rx="2.8" ry="4.5" fill="#5A2868" opacity=".3" transform="rotate(10,71,73)"/>
+
+              <path d="M68 66 L72 64 L76 66" stroke="#4A8030" stroke-width="1.2" fill="#4A8030"/>
+
+            </g>
+
+          </g>
+
+        </g></svg>
+
+        <div class="plant-name">Aubergine</div>
+
+        <div class="plant-latin">Solanum melongena</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">Bushy plant with large fuzzy leaves, purple star-shaped flowers, and glossy dark purple fruit. Loves heat — thrives Feb–May in UAE. Also called eggplant or باذنجان.</p>
+
+          <p class="info-benefit">Kitchen staple — from baba ghanoush to moussaka, a homegrown aubergine is incomparably better than store-bought.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Eggplant" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+      <!-- HABAK -->
+      <div class="plant-card">
+        <svg viewBox="0 0 110 130"><g class="anim-rustle">
+          <!-- Taller, more upright than regular mint — woolly stems -->
+          <line x1="55" y1="125" x2="55" y2="38" stroke="#4A7838" stroke-width="2.2" stroke-linecap="round"/>
+          <line x1="55" y1="108" x2="35" y2="90" stroke="#4A7838" stroke-width="1.3" stroke-linecap="round"/>
+          <line x1="55" y1="95" x2="75" y2="78" stroke="#4A7838" stroke-width="1.3" stroke-linecap="round"/>
+          <line x1="55" y1="80" x2="38" y2="62" stroke="#4A7838" stroke-width="1.3" stroke-linecap="round"/>
+          <line x1="55" y1="65" x2="72" y2="48" stroke="#4A7838" stroke-width="1.2" stroke-linecap="round"/>
+          <!-- Distinctive: elongated, serrated, slightly fuzzy/woolly leaves — longer than regular mint -->
+          <g fill="#4A9A40">
+            <ellipse cx="33" cy="88" rx="11" ry="5.5" transform="rotate(-18,33,88)" opacity=".75"/>
+            <ellipse cx="77" cy="76" rx="11" ry="5.5" transform="rotate(14,77,76)" opacity=".75"/>
+            <ellipse cx="36" cy="60" rx="10" ry="5" transform="rotate(-12,36,60)" opacity=".7"/>
+            <ellipse cx="74" cy="46" rx="10" ry="5" transform="rotate(10,74,46)" opacity=".7"/>
+            <ellipse cx="55" cy="42" rx="8" ry="4.5" opacity=".65"/>
+          </g>
+          <!-- Woolly texture on leaves -->
+          <g fill="#5AAA50" opacity=".15">
+            <ellipse cx="33" cy="87" rx="7" ry="3" transform="rotate(-18,33,87)"/>
+            <ellipse cx="77" cy="75" rx="7" ry="3" transform="rotate(14,77,75)"/>
+            <ellipse cx="36" cy="59" rx="6" ry="2.5" transform="rotate(-12,36,59)"/>
+          </g>
+          <!-- Leaf serration hints -->
+          <g stroke="#3A8030" stroke-width=".3" opacity=".2">
+            <line x1="24" y1="86" x2="22" y2="84"/><line x1="27" y1="84" x2="25" y2="82"/><line x1="30" y1="83" x2="28" y2="81"/>
+            <line x1="86" y1="74" x2="88" y2="72"/><line x1="83" y1="73" x2="85" y2="71"/>
+          </g>
+          <!-- Distinctive: tall terminal flower spike — lilac/pink, longer than regular mint -->
+          <g class="hover-reveal"><g class="anim-bloom">
+            <ellipse cx="55" cy="34" rx="4" ry="6" fill="#C0A0D0" opacity=".6"/>
+            <ellipse cx="55" cy="26" rx="3.5" ry="5" fill="#C8A8D8" opacity=".55"/>
+            <ellipse cx="55" cy="19" rx="3" ry="4" fill="#D0B0E0" opacity=".5"/>
+            <ellipse cx="55" cy="14" rx="2" ry="3" fill="#D8B8E8" opacity=".45"/>
+          </g></g>
+        </g></svg>
+        <div class="plant-name">Habak</div>
+        <div class="plant-latin">Mentha longifolia</div>
+        <div class="plant-info">
+          <p class="info-blurb">Wild mint native to the Middle East — taller and more robust than garden mint, with elongated woolly leaves and tall lilac flower spikes. Known as حبق in Arabic. Thrives in UAE heat better than European mint varieties.</p>
+          <p class="info-benefit">Heritage herb — habak is the traditional mint of Gulf cuisine. Stronger and earthier than spearmint, it's used in salads, yoghurt drinks, and as a natural digestive.</p>
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Mentha_longifolia" target="_blank">Wikipedia →</a>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <div class="botanical-category">Flowers</div>
+
+    <div class="botanical-grid">
+
+
+
+      <!-- HOLLYHOCKS -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-sway">
+
+          <!-- Tall single spike — the hallmark -->
+
+          <line x1="55" y1="128" x2="55" y2="10" stroke="#5A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+
+          <!-- Large palmate leaves at base -->
+
+          <path d="M55 115 Q35 108 28 100" stroke="#5A7A4A" stroke-width="1" fill="none"/>
+
+          <ellipse cx="26" cy="98" rx="12" ry="8" fill="#6B8C5A" transform="rotate(-20,26,98)"/>
+
+          <path d="M55 108 Q75 100 80 92" stroke="#5A7A4A" stroke-width="1" fill="none"/>
+
+          <ellipse cx="82" cy="90" rx="12" ry="8" fill="#6B8C5A" transform="rotate(15,82,90)"/>
+
+          <!-- Distinctive: large round open flowers climbing the spike -->
+
+          <g class="hover-reveal"><g class="anim-bloom">
+
+            <circle cx="55" cy="18" r="8" fill="#D87CA0" opacity=".9"/><circle cx="55" cy="18" r="5" fill="#E8A5BE" opacity=".8"/><circle cx="55" cy="18" r="2" fill="#C06888"/>
+
+            <circle cx="55" cy="36" r="9" fill="#D06C94"/><circle cx="55" cy="36" r="5.5" fill="#E098B5" opacity=".8"/><circle cx="55" cy="36" r="2.5" fill="#B85A80"/>
+
+            <circle cx="55" cy="56" r="10" fill="#C86090"/><circle cx="55" cy="56" r="6" fill="#D88AAC" opacity=".8"/><circle cx="55" cy="56" r="2.8" fill="#B05078"/>
+
+            <circle cx="55" cy="76" r="9" fill="#C86090" opacity=".8"/><circle cx="55" cy="76" r="5.5" fill="#D88AAC" opacity=".7"/><circle cx="55" cy="76" r="2.5" fill="#B05078"/>
+
+          </g></g>
+
+        </g></svg>
+
+        <div class="plant-name">Hollyhocks</div>
+
+        <div class="plant-latin">Alcea rosea</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">Tall cottage-garden classic reaching 2m+, with large saucer-shaped flowers stacked along a single dramatic spike. Comes in pink, red, white, and near-black.</p>
+
+          <p class="info-benefit">Vertical drama — adds height and old-world charm against the villa's white walls.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Alcea_rosea" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ROSES -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-sway">
+
+          <!-- Thorny curved stem -->
+
+          <path d="M55 128 Q52 95 48 78 Q44 60 55 42" stroke="#4A6B3A" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+
+          <path d="M53 95 Q38 86 28 80" stroke="#4A6B3A" stroke-width="1.3" fill="none"/>
+
+          <path d="M50 78 Q65 70 72 62" stroke="#4A6B3A" stroke-width="1.3" fill="none"/>
+
+          <!-- Compound leaflets — groups of 5 -->
+
+          <g fill="#4A7A3A"><ellipse cx="25" cy="79" rx="5" ry="3.5" transform="rotate(-30,25,79)"/><ellipse cx="30" cy="82" rx="5" ry="3.5" transform="rotate(-15,30,82)"/><ellipse cx="22" cy="83" rx="4" ry="3" transform="rotate(-40,22,83)"/></g>
+
+          <g fill="#4A7A3A"><ellipse cx="75" cy="61" rx="5" ry="3.5" transform="rotate(25,75,61)"/><ellipse cx="70" cy="63" rx="5" ry="3.5" transform="rotate(10,70,63)"/><ellipse cx="78" cy="64" rx="4" ry="3" transform="rotate(35,78,64)"/></g>
+
+          <!-- Thorns -->
+
+          <line x1="50" y1="88" x2="46" y2="84" stroke="#4A6B3A" stroke-width="1.2"/><line x1="52" y1="72" x2="56" y2="68" stroke="#4A6B3A" stroke-width="1.2"/>
+
+          <!-- Distinctive layered rose bloom -->
+
+          <g class="hover-reveal"><g class="anim-bloom">
+
+            <!-- Outer petals -->
+
+            <ellipse cx="50" cy="34" rx="10" ry="8" fill="#D64530" opacity=".35" transform="rotate(-20,50,34)"/>
+
+            <ellipse cx="60" cy="36" rx="10" ry="8" fill="#D64530" opacity=".35" transform="rotate(20,60,36)"/>
+
+            <ellipse cx="55" cy="40" rx="10" ry="8" fill="#D64530" opacity=".35" transform="rotate(0,55,40)"/>
+
+            <!-- Inner spiral -->
+
+            <circle cx="55" cy="35" r="8" fill="#D64530" opacity=".6"/>
+
+            <ellipse cx="52" cy="33" rx="5" ry="6" fill="#E05545" transform="rotate(-12,52,33)"/>
+
+            <ellipse cx="58" cy="33" rx="5" ry="6" fill="#E05545" transform="rotate(12,58,33)"/>
+
+            <ellipse cx="55" cy="37" rx="5" ry="5" fill="#C83828"/>
+
+            <circle cx="55" cy="34" r="3" fill="#B82820"/>
+
+          </g></g>
+
+        </g></svg>
+
+        <div class="plant-name">Roses</div>
+
+        <div class="plant-latin">Rosa spp.</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">The world's most cultivated ornamental flower. Layered petals, thorny stems, compound leaves. Hundreds of cultivars available for UAE gardens.</p>
+
+          <p class="info-benefit">Fragrance & cut flowers — a rose garden supplies the house with fresh blooms year-round in Dubai's climate.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Rose" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- BOUGAINVILLEA -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-rustle">
+
+          <!-- Distinctive: woody vine with papery triangular bracts in clusters -->
+
+          <!-- Thick woody trunk/branches -->
+
+          <path d="M55 128 Q50 100 42 80 Q34 60 28 42" stroke="#7A5A3A" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+          <path d="M48 88 Q60 72 78 55 Q88 45 90 32" stroke="#7A5A3A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+          <path d="M44 70 Q36 58 40 45" stroke="#7A5A3A" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+
+          <!-- Green leaves — small, pointed -->
+
+          <ellipse cx="32" cy="65" rx="7" ry="4.5" fill="#4A8A3A" transform="rotate(-12,32,65)"/>
+
+          <ellipse cx="65" cy="58" rx="7" ry="4.5" fill="#4A8A3A" transform="rotate(18,65,58)"/>
+
+          <ellipse cx="48" cy="48" rx="6" ry="4" fill="#4A8A3A" transform="rotate(-5,48,48)"/>
+
+          <ellipse cx="80" cy="42" rx="6" ry="4" fill="#4A8A3A" transform="rotate(10,80,42)"/>
+
+          <!-- DISTINCTIVE: Papery triangular bracts in tight clusters of 3 -->
+
+          <g class="hover-reveal"><g class="anim-bloom">
+
+            <!-- Cluster 1 -->
+
+            <polygon points="26,40 18,28 34,28" fill="#C44D72" opacity=".9"/><polygon points="26,40 34,28 38,40" fill="#D45A80" opacity=".75"/><polygon points="26,40 18,28 14,40" fill="#B84068" opacity=".85"/>
+
+            <circle cx="26" cy="34" r="1.5" fill="#F0E8A0"/>
+
+            <!-- Cluster 2 -->
+
+            <polygon points="42,43 34,31 50,31" fill="#C44D72" opacity=".9"/><polygon points="42,43 50,31 54,43" fill="#D45A80" opacity=".75"/><polygon points="42,43 34,31 30,43" fill="#B84068" opacity=".85"/>
+
+            <circle cx="42" cy="37" r="1.5" fill="#F0E8A0"/>
+
+            <!-- Cluster 3 -->
+
+            <polygon points="78,52 70,40 86,40" fill="#C44D72" opacity=".9"/><polygon points="78,52 86,40 90,52" fill="#D45A80" opacity=".75"/><polygon points="78,52 70,40 66,52" fill="#B84068" opacity=".85"/>
+
+            <circle cx="78" cy="46" r="1.5" fill="#F0E8A0"/>
+
+            <!-- Cluster 4 -->
+
+            <polygon points="90,30 82,18 98,18" fill="#C44D72" opacity=".85"/><polygon points="90,30 98,18 102,30" fill="#D45A80" opacity=".7"/><polygon points="90,30 82,18 78,30" fill="#B84068" opacity=".8"/>
+
+            <circle cx="90" cy="24" r="1.5" fill="#F0E8A0"/>
+
+            <!-- Cluster 5 -->
+
+            <polygon points="60,38 52,26 68,26" fill="#C44D72" opacity=".85"/><polygon points="60,38 68,26 72,38" fill="#D45A80" opacity=".7"/>
+
+            <circle cx="60" cy="32" r="1.5" fill="#F0E8A0"/>
+
+          </g></g>
+
+        </g></svg>
+
+        <div class="plant-name">Bougainvillea</div>
+
+        <div class="plant-latin">Bougainvillea spectabilis</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">Vigorous woody vine with papery triangular bracts in magenta, pink, orange, or white. The tiny white true flowers sit inside the bracts. Blooms up to 11 months a year in the UAE.</p>
+
+          <p class="info-benefit">Drought-tolerant privacy screen — climbs boundary walls fast and thrives in Khawaneej's full sun with minimal water.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Bougainvillea" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="botanical-category">Trees</div>
+
+    <div class="botanical-grid">
+
+
+
+      <!-- POINCIANA -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-sway-big">
+
+          <rect x="51" y="80" width="8" height="48" rx="3" fill="#8B7355"/>
+
+          <!-- Distinctive: wide umbrella canopy, feathery compound leaves -->
+
+          <ellipse cx="55" cy="55" rx="42" ry="28" fill="#4A7A3A" opacity=".5"/>
+
+          <ellipse cx="48" cy="50" rx="30" ry="20" fill="#5A8A4A" opacity=".35"/>
+
+          <ellipse cx="65" cy="58" rx="28" ry="18" fill="#4A7A3A" opacity=".3"/>
+
+          <!-- Feathery leaf hints -->
+
+          <line x1="30" y1="55" x2="18" y2="48" stroke="#5A8A4A" stroke-width=".5" opacity=".4"/>
+
+          <line x1="80" y1="50" x2="92" y2="44" stroke="#5A8A4A" stroke-width=".5" opacity=".4"/>
+
+          <g class="hover-reveal"><g class="anim-bloom">
+
+            <circle cx="35" cy="42" r="5" fill="#D64530" opacity=".9"/><circle cx="35" cy="42" r="2.5" fill="#E87060"/>
+
+            <circle cx="55" cy="32" r="5.5" fill="#D64530" opacity=".9"/><circle cx="55" cy="32" r="2.8" fill="#E87060"/>
+
+            <circle cx="75" cy="40" r="5" fill="#D64530" opacity=".9"/><circle cx="75" cy="40" r="2.5" fill="#E87060"/>
+
+            <circle cx="45" cy="52" r="4" fill="#E05540" opacity=".75"/>
+
+            <circle cx="68" cy="55" r="4" fill="#E05540" opacity=".75"/>
+
+            <circle cx="28" cy="56" r="3.5" fill="#E05540" opacity=".7"/>
+
+            <circle cx="82" cy="52" r="3.5" fill="#E05540" opacity=".7"/>
+
+          </g></g>
+
+        </g></svg>
+
+        <div class="plant-name">Poinciana</div>
+
+        <div class="plant-latin">Delonix regia</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">The "flame tree" — a large tropical tree with a wide, flat canopy and clusters of vivid red-orange flowers. Feathery compound leaves give dappled shade.</p>
+
+          <p class="info-benefit">Summer canopy — provides broad shade over sitting areas and dramatic color when flowering in May-July.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Delonix_regia" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- MILLINGTONIA -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-sway">
+
+          <rect x="51" y="72" width="7" height="56" rx="2.5" fill="#9B8B75"/>
+
+          <!-- Distinctive: tall, columnar form with drooping white tubular flowers -->
+
+          <path d="M55 75 Q30 65 20 50 Q14 38 22 28 Q34 15 55 18 Q76 15 88 28 Q96 38 90 50 Q80 65 55 75Z" fill="#4A8040" opacity=".5"/>
+
+          <path d="M55 70 Q38 62 30 48 Q26 38 35 30 Q45 22 55 25 Q65 22 75 30 Q84 38 80 48 Q72 62 55 70Z" fill="#5A9050" opacity=".3"/>
+
+          <!-- Hanging white trumpet flowers — distinctive -->
+
+          <g class="hover-reveal"><g class="anim-bob">
+
+            <line x1="35" y1="38" x2="35" y2="22" stroke="#F0EBE3" stroke-width="1.2" stroke-linecap="round"/>
+
+            <path d="M31,22 Q35,18 39,22" stroke="#F0EBE3" stroke-width="1" fill="none"/>
+
+            <line x1="55" y1="30" x2="55" y2="12" stroke="#F0EBE3" stroke-width="1.2" stroke-linecap="round"/>
+
+            <path d="M51,12 Q55,8 59,12" stroke="#F0EBE3" stroke-width="1" fill="none"/>
+
+            <line x1="75" y1="36" x2="75" y2="20" stroke="#F0EBE3" stroke-width="1.2" stroke-linecap="round"/>
+
+            <path d="M71,20 Q75,16 79,20" stroke="#F0EBE3" stroke-width="1" fill="none"/>
+
+            <line x1="45" y1="48" x2="45" y2="34" stroke="#F0EBE3" stroke-width="1.2" stroke-linecap="round"/>
+
+            <path d="M41,34 Q45,30 49,34" stroke="#F0EBE3" stroke-width="1" fill="none"/>
+
+            <line x1="65" y1="45" x2="65" y2="30" stroke="#F0EBE3" stroke-width="1.2" stroke-linecap="round"/>
+
+            <path d="M61,30 Q65,26 69,30" stroke="#F0EBE3" stroke-width="1" fill="none"/>
+
+          </g></g>
+
+        </g></svg>
+
+        <div class="plant-name">Millingtonia</div>
+
+        <div class="plant-latin">Millingtonia hortensis</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">The "Indian cork tree" — tall, fast-growing with drooping clusters of fragrant white trumpet-shaped flowers. Blooms November–January in the UAE.</p>
+
+          <p class="info-benefit">Night fragrance — flowers release a jasmine-like scent in the evening, perfect near outdoor sitting areas.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Millingtonia_hortensis" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ACACIA -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-sway-big">
+
+          <rect x="51" y="75" width="7" height="53" rx="2.5" fill="#8B7355"/>
+
+          <!-- Distinctive: flat-topped umbrella canopy -->
+
+          <ellipse cx="55" cy="52" rx="42" ry="18" fill="#5A8040" opacity=".5"/>
+
+          <ellipse cx="55" cy="48" rx="36" ry="12" fill="#6B9050" opacity=".35"/>
+
+          <ellipse cx="55" cy="44" rx="28" ry="8" fill="#7AA060" opacity=".25"/>
+
+          <!-- Golden puffball flowers — very distinctive -->
+
+          <g class="hover-reveal"><g class="anim-bloom">
+
+            <circle cx="30" cy="44" r="6" fill="#E8C84A" opacity=".85"/><circle cx="30" cy="44" r="3.5" fill="#F0D860"/>
+
+            <circle cx="55" cy="38" r="6.5" fill="#E8C84A" opacity=".85"/><circle cx="55" cy="38" r="3.8" fill="#F0D860"/>
+
+            <circle cx="80" cy="42" r="6" fill="#E8C84A" opacity=".85"/><circle cx="80" cy="42" r="3.5" fill="#F0D860"/>
+
+            <circle cx="42" cy="52" r="4.5" fill="#E8C84A" opacity=".7"/><circle cx="42" cy="52" r="2.8" fill="#F0D860"/>
+
+            <circle cx="68" cy="50" r="4.5" fill="#E8C84A" opacity=".7"/><circle cx="68" cy="50" r="2.8" fill="#F0D860"/>
+
+          </g></g>
+
+        </g></svg>
+
+        <div class="plant-name">Acacia</div>
+
+        <div class="plant-latin">Vachellia / Acacia spp.</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">Iconic flat-topped desert tree with feathery foliage and spherical golden-yellow flower puffs. Native to the UAE region and extremely hardy.</p>
+
+          <p class="info-benefit">Native heritage — indigenous species requires almost no irrigation once established, and feeds local birds.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Acacia" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- LIME TREE -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-sway">
+
+          <rect x="51" y="75" width="7" height="53" rx="2.5" fill="#7A6B55"/>
+
+          <!-- Distinctive: dense rounded canopy, glossy oval leaves -->
+
+          <circle cx="55" cy="48" r="30" fill="#4A8A30" opacity=".45"/>
+
+          <circle cx="48" cy="42" r="22" fill="#5A9A40" opacity=".3"/>
+
+          <circle cx="62" cy="52" r="20" fill="#4A8A30" opacity=".25"/>
+
+          <!-- Small glossy leaves suggested -->
+
+          <ellipse cx="38" cy="38" rx="5" ry="3.5" fill="#5AA040" opacity=".5" transform="rotate(-10,38,38)"/>
+
+          <ellipse cx="72" cy="45" rx="5" ry="3.5" fill="#5AA040" opacity=".5" transform="rotate(15,72,45)"/>
+
+          <g class="hover-reveal"><g class="anim-bob">
+
+            <ellipse cx="40" cy="50" rx="5" ry="5.5" fill="#8BC34A"/><ellipse cx="40" cy="50" rx="3" ry="3.5" fill="#A0D55A" opacity=".6"/>
+
+            <ellipse cx="62" cy="40" rx="4.5" ry="5" fill="#8BC34A"/><ellipse cx="62" cy="40" rx="2.8" ry="3.2" fill="#A0D55A" opacity=".6"/>
+
+            <ellipse cx="50" cy="60" rx="5" ry="5.5" fill="#7AB338"/><ellipse cx="50" cy="60" rx="3" ry="3.5" fill="#95C84A" opacity=".6"/>
+
+            <ellipse cx="68" cy="55" rx="4" ry="4.5" fill="#8BC34A"/>
+
+          </g></g>
+
+        </g></svg>
+
+        <div class="plant-name">Lime Tree</div>
+
+        <div class="plant-latin">Citrus aurantiifolia</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">Compact evergreen citrus with dense glossy foliage, fragrant white blossoms, and tart green fruit. Grows well in Dubai with regular watering.</p>
+
+          <p class="info-benefit">Fresh citrus year-round — limes for cooking, drinks, and the beautiful fragrance of citrus blossom.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Key_lime" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- MANGO TREE -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-sway-big">
+
+          <rect x="49" y="70" width="12" height="58" rx="4" fill="#6B5030"/>
+
+          <!-- Distinctive: large dense rounded canopy -->
+
+          <path d="M55 72 Q18 62 12 40 Q8 22 25 12 Q40 3 55 8 Q70 3 85 12 Q102 22 98 40 Q92 62 55 72Z" fill="#2A5A1A" opacity=".55"/>
+
+          <path d="M55 68 Q28 58 22 40 Q18 25 32 18 Q44 12 55 16 Q66 12 78 18 Q92 25 88 40 Q82 58 55 68Z" fill="#3A6A2A" opacity=".35"/>
+
+          <!-- Elongated mango leaves -->
+
+          <ellipse cx="30" cy="35" rx="3" ry="9" fill="#3A7020" opacity=".4" transform="rotate(-25,30,35)"/>
+
+          <ellipse cx="80" cy="32" rx="3" ry="9" fill="#3A7020" opacity=".4" transform="rotate(20,80,32)"/>
+
+          <!-- Hanging mangoes — teardrop/kidney shape -->
+
+          <g class="hover-reveal"><g class="anim-bob">
+
+            <ellipse cx="38" cy="45" rx="5.5" ry="7" fill="#E8A735" transform="rotate(-15,38,45)"/><ellipse cx="37" cy="43" rx="3" ry="4" fill="#F0C040" opacity=".4" transform="rotate(-15,37,43)"/>
+
+            <ellipse cx="68" cy="38" rx="5" ry="6.5" fill="#E8A735" transform="rotate(12,68,38)"/><ellipse cx="67" cy="36" rx="2.8" ry="3.5" fill="#F0C040" opacity=".4" transform="rotate(12,67,36)"/>
+
+            <ellipse cx="52" cy="55" rx="5.5" ry="7" fill="#D4972A" transform="rotate(5,52,55)"/><ellipse cx="51" cy="53" rx="3" ry="4" fill="#E8B040" opacity=".4" transform="rotate(5,51,53)"/>
+
+          </g></g>
+
+        </g></svg>
+
+        <div class="plant-name">Mango Tree</div>
+
+        <div class="plant-latin">Mangifera indica</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">Large evergreen tropical tree with a dense, spreading canopy and elongated leathery leaves. Produces sweet, aromatic fruit in summer. Popular in UAE gardens.</p>
+
+          <p class="info-benefit">Shade + harvest — one of the few fruit trees that thrives in UAE heat, producing fruit from May to August.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Mango" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- CHASTE TREE -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-sway">
+
+          <!-- Multi-trunk vase shape — distinctive -->
+
+          <line x1="48" y1="128" x2="42" y2="70" stroke="#8B7A60" stroke-width="2.5" stroke-linecap="round"/>
+
+          <line x1="55" y1="128" x2="55" y2="65" stroke="#8B7A60" stroke-width="3" stroke-linecap="round"/>
+
+          <line x1="62" y1="128" x2="68" y2="70" stroke="#8B7A60" stroke-width="2.5" stroke-linecap="round"/>
+
+          <!-- Palmate compound leaves — hand-shaped, 5 leaflets -->
+
+          <g fill="#7A9A6A" opacity=".6">
+
+            <ellipse cx="35" cy="58" rx="3" ry="8" transform="rotate(-30,35,58)"/><ellipse cx="42" cy="52" rx="2.5" ry="7" transform="rotate(-15,42,52)"/><ellipse cx="48" cy="50" rx="2.5" ry="7.5"/><ellipse cx="54" cy="52" rx="2.5" ry="7" transform="rotate(15,54,52)"/><ellipse cx="60" cy="58" rx="3" ry="8" transform="rotate(30,60,58)"/>
+
+            <ellipse cx="60" cy="45" rx="3" ry="8" transform="rotate(-25,60,45)"/><ellipse cx="67" cy="40" rx="2.5" ry="7" transform="rotate(-10,67,40)"/><ellipse cx="73" cy="38" rx="2.5" ry="7.5"/><ellipse cx="79" cy="40" rx="2.5" ry="7" transform="rotate(15,79,40)"/><ellipse cx="84" cy="46" rx="3" ry="7" transform="rotate(30,84,46)"/>
+
+            <ellipse cx="22" cy="50" rx="2.5" ry="7" transform="rotate(-25,22,50)"/><ellipse cx="28" cy="46" rx="2.5" ry="7" transform="rotate(-10,28,46)"/><ellipse cx="34" cy="44" rx="2.5" ry="7.5"/>
+
+          </g>
+
+          <!-- Lavender flower spikes — upright panicles -->
+
+          <g class="hover-reveal"><g class="anim-bloom">
+
+            <ellipse cx="42" cy="38" rx="3" ry="10" fill="#9B8EC4" opacity=".8"/><ellipse cx="42" cy="32" rx="2" ry="5" fill="#B0A3D8" opacity=".5"/>
+
+            <ellipse cx="55" cy="32" rx="3.5" ry="12" fill="#9B8EC4" opacity=".85"/><ellipse cx="55" cy="25" rx="2.2" ry="6" fill="#B0A3D8" opacity=".5"/>
+
+            <ellipse cx="68" cy="35" rx="3" ry="10" fill="#9B8EC4" opacity=".8"/><ellipse cx="68" cy="29" rx="2" ry="5" fill="#B0A3D8" opacity=".5"/>
+
+            <ellipse cx="30" cy="42" rx="2.5" ry="8" fill="#9B8EC4" opacity=".7"/>
+
+            <ellipse cx="78" cy="38" rx="2.5" ry="8" fill="#9B8EC4" opacity=".7"/>
+
+          </g></g>
+
+        </g></svg>
+
+        <div class="plant-name">Chaste Tree</div>
+
+        <div class="plant-latin">Vitex agnus-castus</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">Multi-stemmed deciduous shrub with aromatic palmate leaves and tall spikes of lavender flowers from May to October. Thrives in 45°C+ heat with minimal water.</p>
+
+          <p class="info-benefit">Butterfly magnet — one of the best pollinator-attracting trees for UAE gardens, with a long bloom season.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Vitex_agnus-castus" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- NEEM / SHREESH -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-sway-big">
+
+          <rect x="50" y="72" width="10" height="56" rx="3" fill="#6B5838"/>
+
+          <!-- Dense rounded evergreen canopy -->
+
+          <path d="M55 74 Q20 64 14 42 Q10 24 26 14 Q42 4 55 8 Q68 4 84 14 Q100 24 96 42 Q90 64 55 74Z" fill="#2A6A1A" opacity=".5"/>
+
+          <path d="M55 70 Q30 60 24 42 Q20 28 34 20 Q46 14 55 18 Q64 14 76 20 Q90 28 86 42 Q80 60 55 70Z" fill="#3A7A2A" opacity=".3"/>
+
+          <!-- Compound pinnate leaves — small paired leaflets along a rachis -->
+
+          <g stroke="#3A7020" stroke-width=".6" fill="none" opacity=".5">
+
+            <line x1="30" y1="45" x2="18" y2="35"/><ellipse cx="22" cy="38" rx="2" ry="4" fill="#4A8030" transform="rotate(-20,22,38)"/><ellipse cx="26" cy="41" rx="2" ry="4" fill="#4A8030" transform="rotate(-10,26,41)"/>
+
+            <line x1="80" y1="42" x2="92" y2="32"/><ellipse cx="88" cy="35" rx="2" ry="4" fill="#4A8030" transform="rotate(20,88,35)"/><ellipse cx="84" cy="38" rx="2" ry="4" fill="#4A8030" transform="rotate(10,84,38)"/>
+
+          </g>
+
+          <!-- Small white flower clusters + olive-like drupes -->
+
+          <g class="hover-reveal"><g class="anim-bob">
+
+            <circle cx="35" cy="38" r="3" fill="#F5F0E0" opacity=".7"/><circle cx="35" cy="38" r="1.5" fill="#FFF"/>
+
+            <circle cx="55" cy="28" r="3.5" fill="#F5F0E0" opacity=".7"/><circle cx="55" cy="28" r="1.8" fill="#FFF"/>
+
+            <circle cx="75" cy="35" r="3" fill="#F5F0E0" opacity=".7"/><circle cx="75" cy="35" r="1.5" fill="#FFF"/>
+
+            <!-- Olive-like fruit -->
+
+            <ellipse cx="42" cy="50" rx="3" ry="4" fill="#8BAA40" opacity=".7"/>
+
+            <ellipse cx="65" cy="48" rx="3" ry="4" fill="#7A9A30" opacity=".7"/>
+
+          </g></g>
+
+        </g></svg>
+
+        <div class="plant-name">Neem</div>
+
+        <div class="plant-latin">Azadirachta indica</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">Fast-growing evergreen with dense pinnate foliage and small white fragrant flowers. Produces olive-like fruit. Deeply rooted in Gulf heritage — called "shreesh" locally.</p>
+
+          <p class="info-benefit">Natural pest control — neem leaves and oil repel insects, and the dense canopy provides excellent year-round shade.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Azadirachta_indica" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- SIDR / NABAQ -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-sway">
+
+          <!-- Distinctive: thorny, gnarled trunk, rounded canopy -->
+
+          <path d="M55 128 Q52 105 50 90 Q48 78 55 72" stroke="#7A6040" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+          <path d="M52 95 Q40 88 32 82" stroke="#7A6040" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+          <path d="M54 82 Q65 75 72 70" stroke="#7A6040" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+          <!-- Thorns -->
+
+          <line x1="48" y1="100" x2="44" y2="96" stroke="#7A6040" stroke-width="1.2"/><line x1="53" y1="86" x2="57" y2="82" stroke="#7A6040" stroke-width="1.2"/>
+
+          <!-- Rounded canopy -->
+
+          <circle cx="55" cy="48" r="28" fill="#4A7A2A" opacity=".45"/>
+
+          <circle cx="48" cy="44" r="20" fill="#5A8A3A" opacity=".3"/>
+
+          <!-- Small rounded leaves -->
+
+          <ellipse cx="35" cy="40" rx="5" ry="4" fill="#5A8A3A" opacity=".5"/><ellipse cx="72" cy="42" rx="5" ry="4" fill="#5A8A3A" opacity=".5"/>
+
+          <ellipse cx="55" cy="32" rx="4.5" ry="3.5" fill="#5A8A3A" opacity=".4"/>
+
+          <!-- Nabaq berries — small round yellow-red fruit -->
+
+          <g class="hover-reveal"><g class="anim-bob">
+
+            <circle cx="40" cy="48" r="3.5" fill="#C8A030"/><circle cx="40" cy="47" r="1.5" fill="#D8B840" opacity=".5"/>
+
+            <circle cx="58" cy="40" r="3" fill="#C8A030"/><circle cx="58" cy="39" r="1.3" fill="#D8B840" opacity=".5"/>
+
+            <circle cx="68" cy="52" r="3.5" fill="#B89028"/><circle cx="68" cy="51" r="1.5" fill="#D0A838" opacity=".5"/>
+
+            <circle cx="48" cy="58" r="3" fill="#C89828"/>
+
+            <circle cx="32" cy="55" r="2.5" fill="#B89028"/>
+
+          </g></g>
+
+        </g></svg>
+
+        <div class="plant-name">Sidr (Nabaq)</div>
+
+        <div class="plant-latin">Ziziphus spina-christi</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">Sacred tree of the Arabian Peninsula with a thorny, gnarled form and small round sweet fruit (nabaq). Extremely drought-hardy and deeply significant in Islamic tradition.</p>
+
+          <p class="info-benefit">Heritage + honey — sidr honey is among the world's most prized, and the tree is virtually indestructible in desert heat.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Ziziphus_spina-christi" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- MULBERRY (Morus alba / فرصاد) -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-sway-big">
+
+          <rect x="50" y="72" width="10" height="56" rx="3" fill="#6B5535"/>
+
+          <!-- Wide spreading canopy -->
+
+          <ellipse cx="55" cy="48" rx="40" ry="26" fill="#3A6A20" opacity=".45"/>
+
+          <ellipse cx="48" cy="44" rx="28" ry="18" fill="#4A7A30" opacity=".3"/>
+
+          <ellipse cx="65" cy="50" rx="25" ry="16" fill="#3A6A20" opacity=".25"/>
+
+          <!-- Heart-shaped/serrated leaves — distinctive -->
+
+          <path d="M30 42 Q28 35 32 30 Q36 35 34 42Z" fill="#4A8030" opacity=".5"/>
+
+          <path d="M76 38 Q74 31 78 26 Q82 31 80 38Z" fill="#4A8030" opacity=".5"/>
+
+          <path d="M55 30 Q53 23 57 18 Q61 23 59 30Z" fill="#4A8030" opacity=".5"/>
+
+          <!-- Mulberry fruit — elongated, clustered, dark purple/white -->
+
+          <g class="hover-reveal"><g class="anim-bob">
+
+            <ellipse cx="38" cy="50" rx="3" ry="5.5" fill="#5A2050" opacity=".85"/><ellipse cx="38" cy="48" rx="2" ry="3" fill="#7A3070" opacity=".4"/>
+
+            <ellipse cx="55" cy="42" rx="3" ry="5.5" fill="#5A2050" opacity=".85"/><ellipse cx="55" cy="40" rx="2" ry="3" fill="#7A3070" opacity=".4"/>
+
+            <ellipse cx="70" cy="48" rx="3" ry="5.5" fill="#5A2050" opacity=".85"/><ellipse cx="70" cy="46" rx="2" ry="3" fill="#7A3070" opacity=".4"/>
+
+            <ellipse cx="48" cy="58" rx="2.5" ry="4.5" fill="#F0E8D0" opacity=".7"/>
+
+            <ellipse cx="62" cy="55" rx="2.5" ry="4.5" fill="#F0E8D0" opacity=".7"/>
+
+          </g></g>
+
+        </g></svg>
+
+        <div class="plant-name">Mulberry (فرصاد)</div>
+
+        <div class="plant-latin">Morus alba</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">Fast-growing deciduous tree with broad heart-shaped leaves and sweet elongated berries in white and dark purple. Known as توت / فرصاد in Arabic. Provides dense summer shade.</p>
+
+          <p class="info-benefit">Edible berries — harvest fresh mulberries in spring for eating, jams, and smoothies. Kids love picking them straight from the tree.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Morus_alba" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- FIG TREE -->
+
+      <div class="plant-card">
+
+        <svg viewBox="0 0 110 130"><g class="anim-sway-big">
+
+          <!-- Distinctive: thick pale trunk, often gnarled/twisting -->
+
+          <path d="M55 128 Q50 110 48 95 Q46 82 55 74" stroke="#A09078" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+          <path d="M52 98 Q40 90 32 84" stroke="#A09078" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+          <path d="M54 85 Q68 78 76 72" stroke="#A09078" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+          <!-- Distinctive: large, deeply lobed palmate leaves (3-5 lobes) -->
+
+          <g fill="#4A8A28" opacity=".7">
+
+            <path d="M55 50 Q48 42 40 45 Q42 35 50 30 Q55 28 60 30 Q68 35 70 45 Q62 42 55 50Z"/>
+
+            <path d="M30 65 Q22 58 15 60 Q18 50 25 46 Q30 44 35 46 Q42 50 44 60 Q36 58 30 65Z"/>
+
+            <path d="M80 58 Q72 50 65 53 Q68 43 75 39 Q80 37 85 39 Q92 43 94 53 Q86 50 80 58Z"/>
+
+          </g>
+
+          <!-- Leaf vein detail -->
+
+          <line x1="55" y1="50" x2="55" y2="32" stroke="#3A7020" stroke-width=".4" opacity=".4"/>
+
+          <line x1="30" y1="65" x2="30" y2="48" stroke="#3A7020" stroke-width=".4" opacity=".4"/>
+
+          <!-- Figs — distinctive pear/teardrop shape, green ripening to purple -->
+
+          <g class="hover-reveal"><g class="anim-bob">
+
+            <ellipse cx="38" cy="78" rx="4.5" ry="6" fill="#6A4A68" opacity=".85"/><ellipse cx="37" cy="76" rx="2.5" ry="3" fill="#8A6A88" opacity=".3"/>
+
+            <rect x="37" y="71" width="2" height="3" rx="1" fill="#5A8030"/>
+
+            <ellipse cx="68" cy="68" rx="4.5" ry="6" fill="#7A9A40" opacity=".8"/><ellipse cx="67" cy="66" rx="2.5" ry="3" fill="#9AB458" opacity=".3"/>
+
+            <rect x="67" y="61" width="2" height="3" rx="1" fill="#5A8030"/>
+
+            <ellipse cx="52" cy="90" rx="4" ry="5.5" fill="#6A4A68" opacity=".8"/>
+
+            <rect x="51" y="84" width="2" height="3" rx="1" fill="#5A8030"/>
+
+          </g></g>
+
+        </g></svg>
+
+        <div class="plant-name">Fig Tree</div>
+
+        <div class="plant-latin">Ficus carica</div>
+
+        <div class="plant-info">
+
+          <p class="info-blurb">Ancient deciduous tree with a sculptural pale trunk and large, deeply lobed leaves. Produces sweet fruit that ripens green to purple. Grows well in UAE — one of the oldest cultivated trees in the world.</p>
+
+          <p class="info-benefit">Biblical fruit — fresh figs are a luxury, and the bold lobed leaves give the garden a Mediterranean character.</p>
+
+          <a class="wiki-link" href="https://en.wikipedia.org/wiki/Ficus_carica" target="_blank">Wikipedia →</a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="ideas-section"><h3>Ideas & Directions</h3><p class="ideas-sub">Keeping it simple</p>
+
+    <div class="ideas-grid">
+
+      <div class="idea-card" style="--accent:var(--sage-herb)"><span class="idea-tag">Kitchen Garden</span><h4>Herbs & edibles near the kitchen wall</h4><p>Lavender, sage, rosemary, habak, mint, basil, parsley — close enough to pick while cooking. Cherry tomatoes, jalapeños, and aubergine in raised beds or pots alongside.</p></div>
+
+      <div class="idea-card" style="--accent:var(--grass)"><span class="idea-tag">Ground</span><h4>Simple open lawn</h4><p>Paspalum or Bermuda. No fussy landscaping — good green coverage, well-irrigated, room to breathe.</p></div>
+
+      <div class="idea-card" style="--accent:var(--rosemary)"><span class="idea-tag">Boundary</span><h4>Privacy canopy</h4><p>Thick tree line along the road and top walls. Poinciana, Acacia, Sidr, Neem for shade. Millingtonia for night fragrance. Fig, mango, lime, mulberry for fruit.</p></div>
+
+      <div class="idea-card" style="--accent:var(--bougainvillea)"><span class="idea-tag">Color</span><h4>Flowers for color</h4><p>Hollyhocks, roses, bougainvillea — splashes against the grass and white walls.</p></div>
+
+    </div>
+
+  </div>
+
+  <footer><div class="footer-left">Bait Hoyamal — Garden</div><div class="footer-right">Design Playground</div></footer>
+
+</div>
+
+
+
+<!-- OUTDOOR -->
+
+<div class="page" id="page-outdoor">
+
+  <div class="material-ribbon">
+    <svg viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Two-tone: smooth white paint left, powder-coated aluminium right -->
+      <!-- White paint zone -->
+      <rect x="0" y="0" width="700" height="200" fill="#F2EFEA"/>
+      <!-- Very subtle plaster texture -->
+      <g opacity=".015"><rect x="0" y="0" width="700" height="200" fill="url(#pNoise)"/></g>
+      <defs><filter id="pNoise"><feTurbulence type="fractalNoise" baseFrequency="1.5" numOctaves="3"/></filter></defs>
+      <!-- Transition zone — soft blend -->
+      <rect x="650" y="0" width="100" height="200" fill="url(#paintToAlum)"/>
+      <defs><linearGradient id="paintToAlum"><stop offset="0%" stop-color="#F2EFEA"/><stop offset="100%" stop-color="#A8A8A4"/></linearGradient></defs>
+      <!-- Aluminium zone -->
+      <rect x="750" y="0" width="450" height="200" fill="#A8A8A4"/>
+      <!-- Powder-coat texture — fine metallic grain -->
+      <g opacity=".04"><rect x="750" y="0" width="450" height="200" fill="url(#metalNoise)"/></g>
+      <defs><filter id="metalNoise"><feTurbulence type="fractalNoise" baseFrequency="3" numOctaves="2"/></filter></defs>
+      <!-- Subtle metallic sheen -->
+      <rect x="750" y="0" width="450" height="200" fill="url(#alumSheen)" opacity=".08"/>
+      <defs><linearGradient id="alumSheen" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff" stop-opacity=".4"/><stop offset="50%" stop-color="#fff" stop-opacity="0"/><stop offset="100%" stop-color="#fff" stop-opacity=".2"/></linearGradient></defs>
+    </svg>
+    <span class="material-ribbon-label">smooth white · RAL 9006 powder-coated aluminium</span>
+    <div class="ribbon-info">
+      <div class="ribbon-info-content">
+        <h4>The Skin of the House</h4>
+        <p>White render and grey aluminium — the two materials the world sees first. The white isn't decorative; it's thermodynamic. A smooth white exterior reflects solar radiation, keeping surface temperatures 15–20°C cooler than a dark facade in Khawaneej's summer. The aluminium frames are powder-coated at 180°C — a process that fuses pigment into a skin harder and more UV-stable than any liquid paint.</p>
+        <p class="info-detail"><strong>The biophilic case:</strong> White walls against green canopy is the oldest architectural relationship in hot climates — from Andalusia to the Cyclades to the Gulf. The eye reads it as shelter. The contrast between the cool, precise facade and the organic garden behind it creates the threshold between built and grown, control and wildness.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-hero"><h2>The <em>Outdoor</em></h2><p class="page-desc">Smooth white paint, big clear windows in grey aluminium. Grass, herbs, flowers, and a thick tree canopy along the road and top walls.</p></div>
+
+
+
+  <div class="floor-plan-wrap">
+
+    <svg viewBox="0 0 500 420" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- Plot boundary -->
+
+      <rect x="10" y="10" width="480" height="400" rx="4" fill="var(--grass)" fill-opacity=".1" stroke="var(--ral9006)" stroke-width=".8"/>
+
+
+
+      <!-- MAIN ROAD label - left side -->
+
+      <text x="8" y="210" class="plan-lbl" font-size="5" text-anchor="middle" transform="rotate(-90,8,210)" letter-spacing=".15em" fill="var(--warm-grey)">MAIN ROAD</text>
+
+
+
+      <!-- Privacy tree canopy - LEFT wall (main road side) - thick -->
+
+      <circle cx="28" cy="40" r="12" class="plan-tree"/><circle cx="28" cy="68" r="14" class="plan-tree"/><circle cx="26" cy="100" r="12" class="plan-tree"/><circle cx="30" cy="130" r="13" class="plan-tree"/><circle cx="26" cy="162" r="14" class="plan-tree"/><circle cx="28" cy="195" r="12" class="plan-tree"/><circle cx="26" cy="225" r="13" class="plan-tree"/><circle cx="30" cy="258" r="14" class="plan-tree"/><circle cx="26" cy="290" r="12" class="plan-tree"/><circle cx="28" cy="320" r="13" class="plan-tree"/><circle cx="26" cy="350" r="14" class="plan-tree"/><circle cx="28" cy="380" r="12" class="plan-tree"/>
+
+      <!-- Second row of trees for thickness on road side -->
+
+      <circle cx="48" cy="55" r="10" class="plan-tree"/><circle cx="46" cy="88" r="11" class="plan-tree"/><circle cx="48" cy="118" r="10" class="plan-tree"/><circle cx="46" cy="148" r="11" class="plan-tree"/><circle cx="48" cy="180" r="10" class="plan-tree"/><circle cx="46" cy="212" r="11" class="plan-tree"/><circle cx="48" cy="242" r="10" class="plan-tree"/>
+
+
+
+      <!-- Privacy tree canopy - TOP wall - thick -->
+
+      <circle cx="40" cy="24" r="12" class="plan-tree"/><circle cx="70" cy="20" r="11" class="plan-tree"/><circle cx="100" cy="26" r="13" class="plan-tree"/><circle cx="132" cy="22" r="12" class="plan-tree"/><circle cx="164" cy="26" r="11" class="plan-tree"/><circle cx="196" cy="20" r="13" class="plan-tree"/><circle cx="228" cy="24" r="12" class="plan-tree"/><circle cx="260" cy="22" r="11" class="plan-tree"/><circle cx="292" cy="26" r="13" class="plan-tree"/><circle cx="324" cy="20" r="12" class="plan-tree"/><circle cx="356" cy="24" r="11" class="plan-tree"/><circle cx="388" cy="22" r="13" class="plan-tree"/><circle cx="420" cy="26" r="12" class="plan-tree"/><circle cx="452" cy="20" r="11" class="plan-tree"/><circle cx="478" cy="24" r="12" class="plan-tree"/>
+
+
+
+      <!-- ─── MAIN HOUSE ─── upper-right area of plot -->
+
+      <!-- Horizontal bar (living/dining) -->
+
+      <rect x="120" y="175" width="300" height="100" rx="1" class="plan-wall" fill="#fff"/>
+
+      <!-- Upper bedroom wing projecting up from right side -->
+
+      <rect x="290" y="80" width="130" height="100" rx="1" class="plan-wall" fill="#fff"/>
+
+      <!-- Connect -->
+
+      <rect x="291" y="176" width="128" height="5" fill="#fff" stroke="none"/>
+
+
+
+      <!-- Stair block - far left -->
+
+      <rect x="80" y="175" width="45" height="50" rx="1" class="plan-wall" fill="#fff"/>
+
+      <rect x="121" y="176" width="4" height="48" fill="#fff" stroke="none"/>
+
+
+
+      <!-- Labels -->
+
+      <text x="200" y="225" class="plan-lbl-lg">LIVING / DINING</text>
+
+      <text x="345" y="130" class="plan-lbl-lg">BEDROOM</text>
+
+      <text x="103" y="205" class="plan-lbl" font-size="5">STAIRS</text>
+
+
+
+      <!-- Service block -->
+
+      <rect x="435" y="100" width="45" height="80" rx="1" class="plan-svc"/>
+
+      <text x="458" y="138" class="plan-lbl" font-size="5">SERVICE</text>
+
+      <text x="458" y="146" class="plan-lbl" font-size="5">BLOCK</text>
+
+
+
+      <!-- Driver's block - bottom left -->
+
+      <rect x="75" y="320" width="55" height="50" rx="1" class="plan-svc"/>
+
+      <text x="103" y="345" class="plan-lbl" font-size="5.5">DRIVER'S</text>
+
+      <text x="103" y="354" class="plan-lbl" font-size="5.5">BLOCK</text>
+
+
+
+      <!-- Car parking -->
+
+      <rect x="75" y="375" width="85" height="28" rx="2" fill="none" stroke="var(--ral9006)" stroke-width=".4" stroke-dasharray="2,2"/>
+
+      <text x="118" y="393" class="plan-lbl" font-size="5">CAR PARKING</text>
+
+
+
+      <!-- Herb/flower hints near house -->
+
+      <circle cx="140" y="290" r="3" fill="var(--sage-herb)" opacity=".25"/>
+
+      <circle cx="160" y="295" r="2.5" fill="#9B8EC4" opacity=".25"/>
+
+      <circle cx="180" y="288" r="3" fill="var(--bougainvillea)" opacity=".2"/>
+
+      <circle cx="200" y="292" r="2.5" fill="var(--sage-herb)" opacity=".25"/>
+
+
+
+      <!-- Plot dimensions -->
+
+      <text x="250" y="416" class="plan-lbl" font-size="5" fill="var(--ral9006)">46.04 m</text>
+
+      <text x="496" y="210" class="plan-lbl" font-size="5" fill="var(--ral9006)" transform="rotate(90,496,210)">22.62 m</text>
+
+    </svg>
+
+  </div>
+
+
+
+  <div class="material-bar"><div class="mat-swatch" style="background:linear-gradient(135deg,#D4C9B8,#E5DCCE)"></div><div class="mat-info"><h4>White Render & Grey Aluminium</h4><p>Smooth white paint · RAL 9006 powder-coated frames · light wood entry door</p></div></div>
+
+  <div class="ideas-section"><h3>Ideas & Directions</h3><p class="ideas-sub">Facade, courtyard, and the spaces in between</p>
+
+    <div class="ideas-grid">
+
+      <div class="idea-card" style="--accent:var(--ral9006)"><span class="idea-tag">Facade</span><h4>Window proportions</h4><p>Large clear glass in grey powder-coated frames. Generous glazing on the garden side.</p></div>
+
+      <div class="idea-card" style="--accent:var(--wood-light)"><span class="idea-tag">Entry</span><h4>The front door</h4><p>Light wood-finish door with the canopy above.</p></div>
+
+      <div class="idea-card" style="--accent:var(--concrete)"><span class="idea-tag">Paving</span><h4>Courtyard ground</h4><p>Brushed concrete or stone pavers in a warm sand tone.</p></div>
+
+      <div class="idea-card" style="--accent:var(--sage-herb)"><span class="idea-tag">Garden</span><h4>Simple & green</h4><p>Grass, herbs and flowers near the house. Privacy trees along the road and top walls.</p></div>
+
+    </div>
+
+  </div>
+
+  <footer><div class="footer-left">Bait Hoyamal — Outdoor</div><div class="footer-right">Design Playground</div></footer>
+
+</div>
+
+
+
+<!-- BASEMENT -->
+
+<div class="page" id="page-basement">
+
+  <div class="material-ribbon">
+    <svg viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Raw concrete — realistic, not polished -->
+      <rect x="0" y="0" width="1200" height="200" fill="#B0AAA2"/>
+      <!-- Formwork texture — subtle horizontal board marks -->
+      <g stroke="#A5A09A" stroke-width="1" opacity=".06">
+        <line x1="0" y1="12" x2="1200" y2="12"/><line x1="0" y1="28" x2="1200" y2="27"/>
+        <line x1="0" y1="44" x2="1200" y2="45"/><line x1="0" y1="62" x2="1200" y2="61"/>
+        <line x1="0" y1="78" x2="1200" y2="79"/><line x1="0" y1="96" x2="1200" y2="95"/>
+        <line x1="0" y1="112" x2="1200" y2="113"/><line x1="0" y1="130" x2="1200" y2="129"/>
+        <line x1="0" y1="146" x2="1200" y2="147"/><line x1="0" y1="164" x2="1200" y2="163"/>
+        <line x1="0" y1="180" x2="1200" y2="181"/><line x1="0" y1="196" x2="1200" y2="195"/>
+      </g>
+      <!-- Colour variation — pour patches -->
+      <ellipse cx="200" cy="80" rx="180" ry="60" fill="#A8A29A" opacity=".08"/>
+      <ellipse cx="700" cy="120" rx="200" ry="70" fill="#B5AFA8" opacity=".06"/>
+      <ellipse cx="1050" cy="60" rx="150" ry="50" fill="#ACA6A0" opacity=".07"/>
+      <!-- Surface pinholes -->
+      <g fill="#9A9590" opacity=".08">
+        <circle cx="80" cy="40" r="1.5"/><circle cx="180" cy="90" r="1"/><circle cx="310" cy="55" r="1.8"/>
+        <circle cx="420" cy="130" r="1.2"/><circle cx="540" cy="45" r="1.5"/><circle cx="650" cy="160" r="1"/>
+        <circle cx="780" cy="70" r="1.8"/><circle cx="880" cy="140" r="1.2"/><circle cx="990" cy="50" r="1.5"/>
+        <circle cx="1080" cy="120" r="1"/><circle cx="1150" cy="80" r="1.3"/>
+      </g>
+      <!-- Bug holes — slightly larger -->
+      <g fill="none" stroke="#9A9590" stroke-width=".5" opacity=".06">
+        <circle cx="150" cy="110" r="3"/><circle cx="450" cy="60" r="2.5"/><circle cx="750" cy="150" r="3.5"/>
+        <circle cx="1000" cy="90" r="2.8"/><circle cx="350" cy="170" r="2"/>
+      </g>
+      <!-- Hairline crack -->
+      <path d="M480 0 Q485 30 482 60 Q478 90 484 120 Q488 150 482 180 Q480 195 483 200" stroke="#9A9590" stroke-width=".4" fill="none" opacity=".06"/>
+      <!-- Tie holes -->
+      <circle cx="300" cy="100" r="5" fill="#A5A09A" opacity=".06"/><circle cx="300" cy="100" r="2" fill="#B0AAA2"/>
+      <circle cx="900" cy="100" r="5" fill="#A5A09A" opacity=".06"/><circle cx="900" cy="100" r="2" fill="#B0AAA2"/>
+    </svg>
+    <span class="material-ribbon-label">poured concrete · formwork · raw</span>
+    <div class="ribbon-info">
+      <div class="ribbon-info-content">
+        <h4>The Honest Material</h4>
+        <p>Concrete is liquid stone — limestone, clay, sand, and water, heated to 1450°C and ground to a powder, then rehydrated and poured into forms. Every surface records its own making: the grain of the formwork timber, the pinholes where air escaped, the hairline cracks where it cured too fast. No two pours are alike.</p>
+        <p class="info-detail"><strong>The biophilic case:</strong> We respond to materials that show how they were made. Concrete's imperfections — the bug holes, the tonal variation between pours, the patina it develops — are signs of geological honesty. In a basement, surrounded by earth, it connects the house to the ground it sits on. The thermal mass absorbs heat during the day and releases it slowly — a cave's logic, built with modern chemistry.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-hero"><h2>The <em>Basement</em></h2><p class="page-desc">Family hall, movie room, snack bar, store. Concrete underfoot.</p></div>
+
+
+
+  <div class="floor-plan-wrap">
+
+    <svg viewBox="0 0 440 300" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- Basement L-shape: main rectangle (family hall/movie) right side, stair wing left -->
+
+
+
+      <!-- Main rectangle -->
+
+      <rect x="150" y="50" width="240" height="200" rx="1" class="plan-wall" fill="var(--concrete)" fill-opacity=".05"/>
+
+      <!-- Stair wing extending left -->
+
+      <rect x="30" y="145" width="125" height="105" rx="1" class="plan-wall" fill="var(--concrete)" fill-opacity=".05"/>
+
+      <!-- Connect -->
+
+      <rect x="151" y="146" width="4" height="103" fill="var(--concrete)" fill-opacity=".05" stroke="none"/>
+
+
+
+      <!-- Interior walls -->
+
+      <line x1="280" y1="50" x2="280" y2="155" stroke="var(--ral9006)" stroke-width=".5"/>
+
+      <line x1="280" y1="155" x2="390" y2="155" stroke="var(--ral9006)" stroke-width=".5"/>
+
+      <line x1="335" y1="50" x2="335" y2="155" stroke="var(--ral9006)" stroke-width=".5"/>
+
+      <line x1="280" y1="105" x2="335" y2="105" stroke="var(--ral9006)" stroke-width=".5"/>
+
+
+
+      <!-- Open to above -->
+
+      <rect x="170" y="108" width="70" height="42" rx="3" class="plan-void"/>
+
+      <text x="205" y="132" class="plan-lbl" font-size="5.5">SKYLIGHT</text>
+
+
+
+      <!-- Future elevator -->
+
+      <rect x="250" y="118" width="25" height="28" rx="2" class="plan-void"/>
+
+      <text x="263" y="135" class="plan-lbl" font-size="4">FUTURE</text>
+
+      <text x="263" y="141" class="plan-lbl" font-size="4">ELEVATOR</text>
+
+
+
+      <!-- Stairs -->
+
+      <rect x="58" y="152" width="40" height="60" class="plan-stair"/>
+
+      <line x1="58" y1="162" x2="98" y2="162" stroke="var(--ral9006)" stroke-width=".3"/>
+
+      <line x1="58" y1="172" x2="98" y2="172" stroke="var(--ral9006)" stroke-width=".3"/>
+
+      <line x1="58" y1="182" x2="98" y2="182" stroke="var(--ral9006)" stroke-width=".3"/>
+
+      <line x1="58" y1="192" x2="98" y2="192" stroke="var(--ral9006)" stroke-width=".3"/>
+
+      <line x1="58" y1="202" x2="98" y2="202" stroke="var(--ral9006)" stroke-width=".3"/>
+
+
+
+      <!-- Room labels -->
+
+      <text x="230" y="210" class="plan-lbl-lg" font-size="10">FAMILY HALL</text>
+
+      <text x="360" y="90" class="plan-lbl-lg">MOVIE /</text>
+
+      <text x="360" y="102" class="plan-lbl-lg">TV ROOM</text>
+
+      <text x="305" y="82" class="plan-lbl">ELEC RM</text>
+
+      <text x="360" y="180" class="plan-lbl">STORE ROOM</text>
+
+      <text x="360" y="230" class="plan-lbl-lg">SNACK BAR</text>
+
+      <text x="75" y="235" class="plan-lbl">STAIRS</text>
+
+
+
+      <!-- Material note -->
+
+      <text x="220" y="285" class="plan-mat-note" fill="var(--concrete)">concrete</text>
+
+    </svg>
+
+  </div>
+
+
+
+  <div class="material-bar"><div class="mat-swatch" style="background:linear-gradient(135deg,var(--concrete),var(--concrete-light))"></div><div class="mat-info"><h4>Concrete</h4><p>Polished or brushed concrete · raw material grounding · cool tonal base</p></div></div>
+
+  <div class="color-band"><div style="background:#7A7570">Dark Concrete</div><div style="background:#9A9590">Mid Concrete</div><div style="background:#B5B0AA">Light Concrete</div><div style="background:#C4BFBA">Sealed Finish</div></div>
+
+  <div class="ideas-section"><h3>Ideas & Directions</h3><p class="ideas-sub">The subterranean level</p>
+
+    <div class="ideas-grid">
+
+      <div class="idea-card" style="--accent:var(--concrete)"><span class="idea-tag">Floor</span><h4>Concrete finish</h4><p>Polished for sheen, or micro-topped for matte.</p></div>
+
+      <div class="idea-card" style="--accent:#7A7570"><span class="idea-tag">Cinema</span><h4>Movie / TV room</h4><p>Acoustic treatment, screen wall, deep lounging.</p></div>
+
+      <div class="idea-card" style="--accent:var(--concrete-light)"><span class="idea-tag">Social</span><h4>Snack bar</h4><p>Counter with stools, mini fridge, coffee setup.</p></div>
+
+    </div>
+
+  </div>
+
+  <footer><div class="footer-left">Bait Hoyamal — Basement</div><div class="footer-right">Design Playground</div></footer>
+
+</div>
+
+
+
+<!-- GROUND -->
+
+<div class="page" id="page-ground">
+
+  <div class="material-ribbon">
+    <svg viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Crema Marfil marble — warm beige with characteristic veining -->
+      <rect x="0" y="0" width="1200" height="200" fill="#DACED0"/>
+      <!-- Warm base colour variation — the hallmark of Crema Marfil -->
+      <ellipse cx="300" cy="100" rx="350" ry="120" fill="#E0D4B8" opacity=".15"/>
+      <ellipse cx="900" cy="80" rx="300" ry="100" fill="#D8CCAE" opacity=".12"/>
+      <ellipse cx="600" cy="150" rx="250" ry="80" fill="#DDD0B8" opacity=".1"/>
+      <!-- Primary veining — warm brown/gold, irregular, branching -->
+      <g stroke="#C4A878" fill="none" opacity=".12">
+        <path d="M-20 50 Q80 65 160 40 Q280 10 380 55 Q500 100 620 50 Q760 -5 880 60 Q1000 110 1100 55 Q1180 20 1220 65" stroke-width="2.5"/>
+        <path d="M-20 52 Q80 67 160 42 Q280 12 380 57" stroke-width="1" opacity=".6"/>
+      </g>
+      <g stroke="#C0A474" fill="none" opacity=".1">
+        <path d="M-10 140 Q120 115 240 145 Q380 175 520 125 Q660 80 800 138 Q920 170 1060 120 Q1160 85 1220 145" stroke-width="2"/>
+        <path d="M-10 142 Q120 117 240 147 Q380 177 520 127" stroke-width=".8" opacity=".6"/>
+      </g>
+      <!-- Secondary veining — finer, more diffuse -->
+      <g stroke="#C8AE84" fill="none" opacity=".06">
+        <path d="M100 90 Q220 70 340 95 Q460 118 580 85 Q700 60 820 92 Q940 115 1060 82" stroke-width="1.5"/>
+        <path d="M200 170 Q340 148 460 175 Q580 195 700 165 Q820 140 940 172 Q1060 190 1180 160" stroke-width="1.2"/>
+        <path d="M50 20 Q150 35 250 18 Q380 5 480 28 Q580 45 680 22 Q800 5 900 30 Q1000 48 1120 20" stroke-width="1"/>
+      </g>
+      <!-- Fossil-shell ghosts — very subtle circular marks -->
+      <g fill="none" stroke="#C4AA80" stroke-width=".4" opacity=".04">
+        <circle cx="180" cy="80" r="8"/><circle cx="520" cy="130" r="6"/><circle cx="850" cy="60" r="7"/><circle cx="1050" cy="150" r="5"/>
+      </g>
+      <!-- Surface polish — Crema Marfil has a warm, buttery sheen -->
+      <rect x="0" y="0" width="1200" height="200" fill="url(#cremaSheen)" opacity=".05"/>
+      <defs><linearGradient id="cremaSheen" x1="0" y1="0" x2="1" y2="0.5"><stop offset="0%" stop-color="#fff" stop-opacity="0"/><stop offset="25%" stop-color="#fff" stop-opacity=".5"/><stop offset="50%" stop-color="#fff" stop-opacity="0"/><stop offset="75%" stop-color="#fff" stop-opacity=".4"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
+    </svg>
+    <span class="material-ribbon-label">crema marfil · veined · polished</span>
+    <div class="ribbon-info">
+      <div class="ribbon-info-content">
+        <h4>Stone Memory</h4>
+        <p>Crema Marfil — quarried from Pinoso, Alicante. It began as marine sediment on the Tethys Sea floor 65 million years ago. Pressure and heat recrystallized calcium carbonate into calcite; iron oxide and clay became the golden veins.</p>
+        <p class="info-detail"><strong>The biophilic case:</strong> Marble is fossilized ocean. The veins are ancient mineral riverbeds. The beige warmth is iron content from the original seabed. Every slab is unique because every square metre of that seafloor was. That's the quality that makes natural stone feel alive.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-hero"><h2>The <em>Ground Floor</em></h2><p class="page-desc">Beige marble — warm, luminous, quietly grand. Living room, dining, pantry, and the bedroom wing.</p></div>
+
+
+
+  <div class="floor-plan-wrap">
+
+    <svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- Ground floor L-shape: horizontal bar (living/dining) bottom, bedroom wing projecting up from right -->
+
+
+
+      <!-- Horizontal bar -->
+
+      <rect x="30" y="175" width="370" height="110" rx="1" class="plan-wall" fill="var(--beige-marble)" fill-opacity=".08"/>
+
+      <!-- Upper bedroom wing -->
+
+      <rect x="270" y="50" width="130" height="130" rx="1" class="plan-wall" fill="var(--beige-marble)" fill-opacity=".08"/>
+
+      <!-- Connect -->
+
+      <rect x="271" y="176" width="128" height="5" fill="var(--beige-marble)" fill-opacity=".08" stroke="none"/>
+
+
+
+      <!-- Stair block left -->
+
+      <rect x="30" y="175" width="42" height="50" class="plan-stair"/>
+
+      <line x1="30" y1="183" x2="72" y2="183" stroke="var(--ral9006)" stroke-width=".3"/>
+
+      <line x1="30" y1="191" x2="72" y2="191" stroke="var(--ral9006)" stroke-width=".3"/>
+
+      <line x1="30" y1="199" x2="72" y2="199" stroke="var(--ral9006)" stroke-width=".3"/>
+
+      <line x1="30" y1="207" x2="72" y2="207" stroke="var(--ral9006)" stroke-width=".3"/>
+
+      <line x1="30" y1="215" x2="72" y2="215" stroke="var(--ral9006)" stroke-width=".3"/>
+
+
+
+      <!-- Interior walls -->
+
+      <line x1="125" y1="175" x2="125" y2="285" stroke="var(--ral9006)" stroke-width=".5"/>
+
+      <line x1="220" y1="175" x2="220" y2="285" stroke="var(--ral9006)" stroke-width=".5"/>
+
+      <line x1="310" y1="175" x2="310" y2="285" stroke="var(--ral9006)" stroke-width=".5"/>
+
+      <line x1="355" y1="175" x2="355" y2="285" stroke="var(--ral9006)" stroke-width=".5"/>
+
+      <line x1="340" y1="50" x2="340" y2="180" stroke="var(--ral9006)" stroke-width=".5"/>
+
+      <line x1="270" y1="120" x2="340" y2="120" stroke="var(--ral9006)" stroke-width=".5"/>
+
+
+
+      <!-- Open to below -->
+
+      <rect x="145" y="178" width="65" height="50" rx="3" class="plan-void"/>
+
+      <text x="178" y="207" class="plan-lbl" font-size="5">OPEN TO BELOW</text>
+
+
+
+      <!-- Future elevator -->
+
+      <rect x="310" y="120" width="25" height="28" rx="2" class="plan-void"/>
+
+      <text x="323" y="137" class="plan-lbl" font-size="4">FUTURE</text>
+
+      <text x="323" y="143" class="plan-lbl" font-size="4">ELEVATOR</text>
+
+
+
+      <!-- Windows -->
+
+      <line x1="55" y1="285" x2="115" y2="285" class="plan-win"/>
+
+      <line x1="135" y1="285" x2="210" y2="285" class="plan-win"/>
+
+      <line x1="230" y1="285" x2="300" y2="285" class="plan-win"/>
+
+      <line x1="30" y1="240" x2="30" y2="275" class="plan-win"/>
+
+      <line x1="400" y1="190" x2="400" y2="240" class="plan-win"/>
+
+      <line x1="290" y1="50" x2="330" y2="50" class="plan-win"/>
+
+      <line x1="350" y1="50" x2="390" y2="50" class="plan-win"/>
+
+      <line x1="400" y1="70" x2="400" y2="110" class="plan-win"/>
+
+
+
+      <!-- Door -->
+
+      <rect x="370" y="281" width="14" height="5" rx="1.5" fill="var(--wood-light)" stroke="var(--wood-warm)" stroke-width=".8"/>
+
+
+
+      <!-- Room labels -->
+
+      <text x="80" y="255" class="plan-lbl-lg">LIVING</text>
+
+      <text x="80" y="267" class="plan-lbl">ROOM</text>
+
+      <text x="175" y="258" class="plan-lbl-lg">DINING</text>
+
+      <text x="265" y="235" class="plan-lbl">PANTRY</text>
+
+      <text x="335" y="225" class="plan-lbl">WASH</text>
+
+      <text x="335" y="240" class="plan-lbl">BATH</text>
+
+      <text x="380" y="225" class="plan-lbl">2ND</text>
+
+      <text x="380" y="235" class="plan-lbl">ENTRY</text>
+
+      <text x="380" y="245" class="plan-lbl">LOBBY</text>
+
+      <text x="55" y="260" class="plan-lbl" font-size="5">MAIN ENTRY</text>
+
+      <text x="55" y="275" class="plan-lbl" font-size="5">LOBBY</text>
+
+      <text x="305" y="88" class="plan-lbl-lg">BEDROOM</text>
+
+      <text x="305" y="100" class="plan-lbl">BATH / DRESS</text>
+
+      <text x="370" y="88" class="plan-lbl">ENTRY</text>
+
+      <text x="370" y="100" class="plan-lbl">LOBBY</text>
+
+      <text x="370" y="140" class="plan-lbl">DRESSER</text>
+
+      <text x="370" y="160" class="plan-lbl">STORE</text>
+
+      <text x="50" y="240" class="plan-lbl" font-size="5">STAIRS</text>
+
+
+
+      <!-- Material note -->
+
+      <text x="240" y="350" class="plan-mat-note" fill="var(--beige-marble-deep)">beige marble</text>
+
+    </svg>
+
+  </div>
+
+
+
+  <div class="material-bar"><div class="mat-swatch" style="background:linear-gradient(135deg,var(--beige-marble-deep),var(--beige-marble))"></div><div class="mat-info"><h4>Beige Marble</h4><p>Warm beige marble flooring · polished or honed · veined natural stone</p></div></div>
+
+  <div class="color-band"><div style="background:#B8A88A">Deep Beige</div><div style="background:#C9B99A">Warm Marble</div><div style="background:#D8CBAF">Light Marble</div><div style="background:#E5DCCE">Cream Vein</div></div>
+
+  <div class="ideas-section"><h3>Ideas & Directions</h3><p class="ideas-sub">Shaping the main living level</p>
+
+    <div class="ideas-grid">
+
+      <div class="idea-card" style="--accent:var(--beige-marble-deep)"><span class="idea-tag">Surface</span><h4>Marble selection</h4><p>Crema Marfil, Botticino, or Turkish beige.</p></div>
+
+      <div class="idea-card" style="--accent:#C9B99A"><span class="idea-tag">Layout</span><h4>Slab vs. tile</h4><p>Large-format slabs with minimal joints.</p></div>
+
+      <div class="idea-card" style="--accent:var(--beige-marble)"><span class="idea-tag">Palette</span><h4>What lives on the marble</h4><p>Walnut legs, matte black metal, soft ivory upholstery.</p></div>
+
+      <div class="idea-card" style="--accent:#D8CBAF"><span class="idea-tag">Threshold</span><h4>Marble to garden</h4><p>A brass or stone inlay strip where marble meets outdoor paving.</p></div>
+
+    </div>
+
+  </div>
+
+  <footer><div class="footer-left">Bait Hoyamal — Ground Floor</div><div class="footer-right">Design Playground</div></footer>
+
+</div>
+
+
+
+<!-- FIRST FLOOR -->
+
+<div class="page" id="page-first">
+
+  <div class="material-ribbon">
+    <svg viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Porcelain wood-finish tile — beige-brown with subtle warm red undertone -->
+      <rect x="0" y="0" width="1200" height="200" fill="#C8AC8A"/>
+      <!-- Warm red-brown undertone -->
+      <rect x="0" y="0" width="1200" height="200" fill="#B89878" opacity=".15"/>
+      <!-- Plank divisions -->
+      <g stroke="#B89A78" stroke-width=".6" opacity=".12">
+        <line x1="0" y1="40" x2="1200" y2="40"/><line x1="0" y1="80" x2="1200" y2="80"/>
+        <line x1="0" y1="120" x2="1200" y2="120"/><line x1="0" y1="160" x2="1200" y2="160"/>
+      </g>
+      <!-- Staggered end joints -->
+      <g stroke="#B89A78" stroke-width=".4" opacity=".08">
+        <line x1="240" y1="0" x2="240" y2="40"/><line x1="560" y1="0" x2="560" y2="40"/><line x1="880" y1="0" x2="880" y2="40"/>
+        <line x1="400" y1="40" x2="400" y2="80"/><line x1="720" y1="40" x2="720" y2="80"/><line x1="1040" y1="40" x2="1040" y2="80"/>
+        <line x1="180" y1="80" x2="180" y2="120"/><line x1="500" y1="80" x2="500" y2="120"/><line x1="820" y1="80" x2="820" y2="120"/><line x1="1140" y1="80" x2="1140" y2="120"/>
+        <line x1="320" y1="120" x2="320" y2="160"/><line x1="640" y1="120" x2="640" y2="160"/><line x1="960" y1="120" x2="960" y2="160"/>
+        <line x1="120" y1="160" x2="120" y2="200"/><line x1="440" y1="160" x2="440" y2="200"/><line x1="760" y1="160" x2="760" y2="200"/><line x1="1080" y1="160" x2="1080" y2="200"/>
+      </g>
+      <!-- Wood grain — long flowing lines with warm red-brown tone -->
+      <g stroke="#B09070" fill="none" opacity=".08" stroke-width=".8">
+        <path d="M0 10 Q200 6 400 12 Q600 16 800 8 Q1000 4 1200 13"/>
+        <path d="M0 22 Q150 26 350 20 Q550 16 750 24 Q950 28 1200 21"/>
+        <path d="M0 50 Q200 46 400 52 Q600 56 800 48 Q1000 44 1200 53"/>
+        <path d="M0 65 Q180 69 380 63 Q580 58 780 66 Q980 70 1200 64"/>
+        <path d="M0 90 Q200 86 400 92 Q600 96 800 88 Q1000 84 1200 93"/>
+        <path d="M0 105 Q180 109 380 103 Q580 98 780 106 Q980 110 1200 104"/>
+        <path d="M0 130 Q200 126 400 132 Q600 136 800 128 Q1000 124 1200 133"/>
+        <path d="M0 145 Q180 149 380 143 Q580 138 780 146 Q980 150 1200 144"/>
+        <path d="M0 170 Q200 166 400 172 Q600 176 800 168 Q1000 164 1200 173"/>
+        <path d="M0 185 Q180 189 380 183 Q580 178 780 186 Q980 190 1200 184"/>
+      </g>
+      <!-- Slightly warmer/redder grain accents -->
+      <g stroke="#A88068" fill="none" opacity=".04" stroke-width="1.2">
+        <path d="M0 15 Q300 10 600 18 Q900 22 1200 14"/>
+        <path d="M0 55 Q300 50 600 58 Q900 62 1200 54"/>
+        <path d="M0 95 Q300 90 600 98 Q900 102 1200 94"/>
+        <path d="M0 135 Q300 130 600 138 Q900 142 1200 134"/>
+        <path d="M0 175 Q300 170 600 178 Q900 182 1200 174"/>
+      </g>
+      <!-- Knots — subtle -->
+      <ellipse cx="380" cy="65" rx="6" ry="4" fill="#A88860" opacity=".05"/>
+      <ellipse cx="880" cy="135" rx="5" ry="4" fill="#A88860" opacity=".04"/>
+      <!-- Colour variation between planks -->
+      <rect x="0" y="40" width="1200" height="40" fill="#A08868" opacity=".03"/>
+      <rect x="0" y="120" width="1200" height="40" fill="#B09878" opacity=".02"/>
+      <!-- Surface sheen -->
+      <rect x="0" y="0" width="1200" height="200" fill="url(#woodPSheen)" opacity=".05"/>
+      <defs><linearGradient id="woodPSheen" x1="0" y1="0" x2="0.8" y2="1"><stop offset="0%" stop-color="#fff" stop-opacity="0"/><stop offset="50%" stop-color="#fff" stop-opacity=".5"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
+    </svg>
+    <span class="material-ribbon-label">porcelain wood-finish · beige-brown · warm grain</span>
+    <div class="ribbon-info">
+      <div class="ribbon-info-content">
+        <h4>The Warmth Underfoot</h4>
+        <p>The first floor uses porcelain tile with a wood finish — a material that borrows the visual language of timber without its vulnerabilities. But the design intent is the same: warmth, quiet, retreat. The beige-brown tone with its subtle red undertone reads as heartwood — the dense, aged core of a tree where the colour deepens over decades of growth.</p>
+        <p class="info-detail"><strong>Why wood matters to us:</strong> Biophilia research consistently shows that wood tones reduce blood pressure, lower heart rate, and improve self-reported wellbeing in interior spaces. The mechanism isn't mystical — it's pattern recognition. Wood grain is a fractal pattern at 1/f frequency, the same mathematical rhythm found in ocean waves, mountain ridgelines, and human heartbeat intervals. Our nervous systems evolved to read these patterns as signals of a safe, natural environment.</p>
+        <p class="info-detail"><strong>The porcelain advantage:</strong> In Dubai's climate — 45°C extremes, aggressive AC cycling, high humidity in bathrooms — solid timber planks expand, contract, and eventually crack. Porcelain is dimensionally inert. A good wood-finish porcelain (200×1200mm planks, rectified edges, matte surface) captures the grain, colour variation, and knot detail of real oak while being waterproof, scratch-proof, and stable across any temperature range. The trade-off is tactile — porcelain is cooler and harder underfoot than real wood. Underfloor heating can help.</p>
+        <p class="info-detail"><strong>The feel:</strong> Straight-lay for bedrooms (calm, expansive). The warm red-brown undertone makes the upstairs feel distinctly different from the cool marble below — you feel the material change as you climb the stairs, and your body registers it as arriving somewhere more intimate.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-hero"><h2>The <em>First Floor</em></h2><p class="page-desc">Light beige-brown wood — warm, quiet, private. Bedrooms, library, home office.</p></div>
+
+
+
+  <div class="floor-plan-wrap">
+
+    <svg viewBox="0 0 480 340" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- First floor: same L-shape. Upper wing = master bedroom/dress/bath. Lower bar = library, office, family sitting, corridor, 2 bedrooms -->
+
+
+
+      <!-- Horizontal bar -->
+
+      <rect x="30" y="165" width="370" height="110" rx="1" class="plan-wall" fill="var(--wood-light)" fill-opacity=".06"/>
+
+      <!-- Upper bedroom wing -->
+
+      <rect x="270" y="40" width="130" height="130" rx="1" class="plan-wall" fill="var(--wood-light)" fill-opacity=".06"/>
+
+      <!-- Connect -->
+
+      <rect x="271" y="166" width="128" height="5" fill="var(--wood-light)" fill-opacity=".06" stroke="none"/>
+
+
+
+      <!-- Stair block left -->
+
+      <rect x="30" y="165" width="42" height="50" class="plan-stair"/>
+
+      <line x1="30" y1="173" x2="72" y2="173" stroke="var(--ral9006)" stroke-width=".3"/>
+
+      <line x1="30" y1="181" x2="72" y2="181" stroke="var(--ral9006)" stroke-width=".3"/>
+
+      <line x1="30" y1="189" x2="72" y2="189" stroke="var(--ral9006)" stroke-width=".3"/>
+
+      <line x1="30" y1="197" x2="72" y2="197" stroke="var(--ral9006)" stroke-width=".3"/>
+
+      <line x1="30" y1="205" x2="72" y2="205" stroke="var(--ral9006)" stroke-width=".3"/>
+
+
+
+      <!-- Interior walls -->
+
+      <line x1="125" y1="165" x2="125" y2="275" stroke="var(--ral9006)" stroke-width=".5"/>
+
+      <line x1="30" y1="220" x2="125" y2="220" stroke="var(--ral9006)" stroke-width=".5"/>
+
+      <line x1="220" y1="165" x2="220" y2="275" stroke="var(--ral9006)" stroke-width=".5"/>
+
+      <line x1="310" y1="220" x2="400" y2="220" stroke="var(--ral9006)" stroke-width=".5"/>
+
+      <line x1="355" y1="220" x2="355" y2="275" stroke="var(--ral9006)" stroke-width=".5"/>
+
+      <line x1="340" y1="40" x2="340" y2="170" stroke="var(--ral9006)" stroke-width=".5"/>
+
+      <line x1="270" y1="110" x2="340" y2="110" stroke="var(--ral9006)" stroke-width=".5"/>
+
+
+
+      <!-- Corridor line -->
+
+      <line x1="125" y1="215" x2="310" y2="215" stroke="var(--ral9006)" stroke-width=".3" stroke-dasharray="4,3"/>
+
+      <text x="220" y="212" class="plan-lbl" font-size="5">CORRIDOR</text>
+
+
+
+      <!-- Open to below -->
+
+      <rect x="35" y="168" width="60" height="48" rx="3" class="plan-void"/>
+
+      <text x="65" y="196" class="plan-lbl" font-size="5">OPEN TO</text>
+
+      <text x="65" y="204" class="plan-lbl" font-size="5">BELOW</text>
+
+
+
+      <!-- Future elevator -->
+
+      <rect x="310" y="110" width="25" height="28" rx="2" class="plan-void"/>
+
+      <text x="323" y="127" class="plan-lbl" font-size="4">FUTURE</text>
+
+      <text x="323" y="133" class="plan-lbl" font-size="4">ELEVATOR</text>
+
+
+
+      <!-- Windows -->
+
+      <line x1="140" y1="275" x2="210" y2="275" class="plan-win"/>
+
+      <line x1="230" y1="275" x2="300" y2="275" class="plan-win"/>
+
+      <line x1="320" y1="275" x2="390" y2="275" class="plan-win"/>
+
+      <line x1="290" y1="40" x2="330" y2="40" class="plan-win"/>
+
+      <line x1="350" y1="40" x2="390" y2="40" class="plan-win"/>
+
+      <line x1="400" y1="60" x2="400" y2="100" class="plan-win"/>
+
+
+
+      <!-- Room labels -->
+
+      <text x="75" y="178" class="plan-lbl" font-size="5">STAIRS</text>
+
+      <text x="78" y="248" class="plan-lbl-lg">LIBRARY</text>
+
+      <text x="78" y="238" class="plan-lbl">HOME OFFICE</text>
+
+      <text x="175" y="250" class="plan-lbl-lg">FAMILY</text>
+
+      <text x="175" y="262" class="plan-lbl">SITTING</text>
+
+      <text x="265" y="250" class="plan-lbl-lg">BEDROOM</text>
+
+      <text x="265" y="262" class="plan-lbl">DRESS / BATH</text>
+
+      <text x="375" y="250" class="plan-lbl-lg">BEDROOM</text>
+
+      <text x="375" y="262" class="plan-lbl">DRESS / BATH</text>
+
+      <text x="305" y="80" class="plan-lbl-lg">BEDROOM</text>
+
+      <text x="305" y="92" class="plan-lbl">DRESS</text>
+
+      <text x="370" y="60" class="plan-lbl">BATH</text>
+
+      <text x="370" y="100" class="plan-lbl">LOBBY</text>
+
+      <text x="370" y="140" class="plan-lbl">DRESS</text>
+
+
+
+      <!-- Material note -->
+
+      <text x="240" y="330" class="plan-mat-note" fill="var(--wood-warm)">light beige-brown wood</text>
+
+    </svg>
+
+  </div>
+
+
+
+  <div class="material-bar"><div class="mat-swatch" style="background:linear-gradient(135deg,var(--wood-warm),var(--wood-light))"></div><div class="mat-info"><h4>Light Beige-Brown Wood</h4><p>Engineered hardwood or porcelain wood-look · warm grain · soft tonal warmth</p></div></div>
+
+  <div class="color-band"><div style="background:#A68B64">Warm Grain</div><div style="background:#BDA47A">Honey Wood</div><div style="background:#C8A97E">Light Oak</div><div style="background:#D9C4A0">Pale Timber</div></div>
+
+  <div class="ideas-section"><h3>Ideas & Directions</h3><p class="ideas-sub">The private upper level</p>
+
+    <div class="ideas-grid">
+
+      <div class="idea-card" style="--accent:var(--wood-warm)"><span class="idea-tag">Floor</span><h4>Wood species & format</h4><p>European oak wide planks, or porcelain wood-look for climate.</p></div>
+
+      <div class="idea-card" style="--accent:var(--wood-light)"><span class="idea-tag">Mood</span><h4>Bedroom atmosphere</h4><p>Wood underfoot, linen curtains, matte plaster, warm indirect lighting.</p></div>
+
+      <div class="idea-card" style="--accent:#BDA47A"><span class="idea-tag">Wet Areas</span><h4>Bathroom shift</h4><p>Warm stone or large-format tile echoing the wood's warmth.</p></div>
+
+      <div class="idea-card" style="--accent:#D9C4A0"><span class="idea-tag">Study</span><h4>Library & office</h4><p>Built-in shelving, desk nook, library opening to the void below.</p></div>
+
+    </div>
+
+  </div>
+
+  <footer><div class="footer-left">Bait Hoyamal — First Floor</div><div class="footer-right">Design Playground</div></footer>
+
+</div>
+
+
+
+<script>
+
+function showPage(p){
+
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+
+  const t=document.getElementById('page-'+p);
+
+  if(t){t.classList.add('active');t.style.animation='none';t.offsetHeight;t.style.animation=''}
+
+  document.querySelectorAll('.nav-links a').forEach(a=>{a.classList.remove('active');if(a.dataset.page===p)a.classList.add('active')});
+
+  window.scrollTo({top:0,behavior:'smooth'});
+
+}
+
+// Typewriter effect
+(function(){
+  const text='Design notes for a house in the suburbs.';
+  const el=document.getElementById('typed-sub');
+  if(!el) return;
+  let i=0;
+  function type(){
+    if(i<=text.length){
+      el.textContent=text.slice(0,i);
+      i++;
+      setTimeout(type, 55 + Math.random()*40);
+    }
+  }
+  // Start typing after the fadeUp animation completes (~3.8s)
+  setTimeout(type, 3800);
+})()
+
+document.querySelectorAll('.nav-links a').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();showPage(a.dataset.page)})});
+
+</script>
+
+</body>
+
+</html>
